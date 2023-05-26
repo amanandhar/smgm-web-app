@@ -1,8 +1,6 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Product } from "./pages/product";
-import { CategorySlider } from "./_components/category-slider";
 
 function App() {
   return (

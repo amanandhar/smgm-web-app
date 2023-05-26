@@ -11,6 +11,7 @@ export const ProductCheckout = () => {
                     <img
                       className="img-circle img-thumbnail"
                       src="https://bootdey.com/img/Content/user_3.jpg"
+                      alt=""
                     />
                     Matew darfkmoun
                   </h3>
@@ -33,6 +34,7 @@ export const ProductCheckout = () => {
                             <img
                               src="https://www.bootdey.com/image/400x200/FFB6C1/000000"
                               className="img-cart"
+                              alt=""
                             />
                           </td>
                           <td>
@@ -49,7 +51,7 @@ export const ProductCheckout = () => {
                               <button rel="tooltip" className="btn btn-default">
                                 <i className="fa fa-pencil"></i>
                               </button>
-                              <a href="#" className="btn btn-primary">
+                              <a href="#!" className="btn btn-primary">
                                 <i className="fa fa-trash-o"></i>
                               </a>
                             </form>
@@ -62,6 +64,7 @@ export const ProductCheckout = () => {
                             <img
                               src="https://www.bootdey.com/image/400x200/87CEFA/000000"
                               className="img-cart"
+                              alt=""
                             />
                           </td>
                           <td>
@@ -79,7 +82,7 @@ export const ProductCheckout = () => {
                                 <i className="fa fa-pencil"></i>
                               </button>
                               <a
-                                href="#"
+                                href="#!"
                                 className="btn btn-primary"
                                 rel="tooltip"
                               >
@@ -116,11 +119,11 @@ export const ProductCheckout = () => {
                   </div>
                 </div>
               </div>
-              <a href="#" className="btn btn-success">
+              <a href="#!" className="btn btn-success">
                 <span className="glyphicon glyphicon-arrow-left"></span>
                 &nbsp;Continue Shopping
               </a>
-              <a href="#" className="btn btn-primary pull-right">
+              <a href="#!" className="btn btn-primary pull-right">
                 Next<span className="glyphicon glyphicon-chevron-right"></span>
               </a>
             </div>
