@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProductCart } from "../../models/ProductCart";
+import { ProductCart } from "../../models/ProductCart.model";
 
 export interface IHeaderProps {
   productCart: ProductCart;

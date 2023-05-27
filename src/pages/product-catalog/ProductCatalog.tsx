@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import data from "../../data/product/ProductData";
-import { ProductCart } from "../../models/ProductCart";
-import { Product } from "../../models/Product";
+import { ProductCart } from "../../models/ProductCart.model";
+import { Product } from "../../models/Product.model";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
 

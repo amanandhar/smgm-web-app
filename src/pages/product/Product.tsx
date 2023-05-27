@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProductCart } from "../../models/ProductCart";
+import { ProductCart } from "../../models/ProductCart.model";
 import { Header } from "../../_components/header";
 import { SearchBar } from "../../_components/search-bar";
 import { ProductCatalog } from "../product-catalog";
