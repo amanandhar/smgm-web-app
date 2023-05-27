@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { NavigationBar } from "../../_components/navigation-bar";
+import { ProductCart } from "../../models/ProductCart";
+import { Header } from "../../_components/header";
 import { SearchBar } from "../../_components/search-bar";
 import { ProductCatalog } from "../product-catalog";
 import "./Product.css";
 
 export const Product = () => {
-  const [cartQuantity, setCartQuantity] = useState<number>(0);
+  const [productCarts, setProductCarts] = useState<ProductCart>({
+    productId: 0,
+    quantity: 0,
+  });
 
-  const handleOnClick = (value: number) => {
-    setCartQuantity(value);
+  const handleOnClick = (productCarts: ProductCart) => {
+    setProductCarts(productCarts);
   };
 
   return (
     <>
       <div className="sticky">
-        <NavigationBar CartQuantity={cartQuantity} />
+        <Header productCart={productCarts} />
         <SearchBar />
-        {/* <CategoryCarousel /> */}
       </div>
 
       <ProductCatalog onClick={handleOnClick} />

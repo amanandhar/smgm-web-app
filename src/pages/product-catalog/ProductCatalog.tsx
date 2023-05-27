@@ -1,26 +1,35 @@
 import { useEffect, useState } from "react";
-import data from "../../data/product/Product";
-import { Product } from "../../models/product";
+import data from "../../data/product/ProductData";
+import { ProductCart } from "../../models/ProductCart";
+import { Product } from "../../models/Product";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
 
 export interface IProductCatalogProps {
-  onClick: (value: number) => void;
+  onClick: (productCarts: ProductCart) => void;
 }
 
 export const ProductCatalog = (props: IProductCatalogProps) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [quantityButtonIds, setQuantityButtonIds] = useState<number[]>([]);
-  const [showQuantityButton, setShowQuantityButton] = useState<boolean>(false);
 
   useEffect(() => {
     setProducts(data.products);
   }, []);
 
-  const handleOnClick = () => {
-    setShowQuantityButton(true);
-    //setQuantityButtonIds([...quantityButtonIds, productId]);
-    console.log("Ids ", quantityButtonIds);
+  const handleAddCartButtonClick = (productId: number, value: number) => {
+    const product = products.find((product) => product.id === productId);
+    if (product) {
+      product.isButtonEnabled = true;
+      setProducts([...products, product]);
+    }
+
+    if (props.onClick) {
+      const cartQuantity = {
+        productId: productId,
+        quantity: value,
+      };
+      props?.onClick(cartQuantity);
+    }
   };
 
   const handleChangeQuantityButtonClick = (
@@ -28,7 +37,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
     value: number
   ) => {
     if (props.onClick) {
-      props?.onClick(value);
+      const cartQuantity = {
+        productId: productId,
+        quantity: value,
+      };
+      props?.onClick(cartQuantity);
     }
   };
 
@@ -53,7 +66,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div className="text-center">
                     <div className="btn mt-auto">
-                      {showQuantityButton && (
+                      {product.isButtonEnabled && (
                         <ChangeQuantityButton
                           onClick={(value) =>
                             handleChangeQuantityButtonClick(
@@ -64,8 +77,12 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                         />
                       )}
 
-                      {!showQuantityButton && (
-                        <AddCartButton onClick={handleOnClick} />
+                      {!product.isButtonEnabled && (
+                        <AddCartButton
+                          onClick={() =>
+                            handleAddCartButtonClick(product.id || 0, 1)
+                          }
+                        />
                       )}
                     </div>
                   </div>
