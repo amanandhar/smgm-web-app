@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import { Product } from "./pages/product";
 
+const ProductCountContext = React.createContext(0);
+
 function App() {
   return (
     <div className="App">
@@ -19,7 +21,10 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Product />
+      <ProductCountContext.Provider value={0}>
+        <Product />
+      </ProductCountContext.Provider>
+
       {/* <CategorySlider /> */}
       {/* <ItemButton /> */}
       {/* <ProductCheckout /> */}

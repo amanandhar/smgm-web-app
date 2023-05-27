@@ -1,4 +1,8 @@
-export const NavigationBar = () => {
+export interface INavigationBarProps {
+  CartQuantity: number;
+}
+
+export const NavigationBar = (props: INavigationBarProps) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
@@ -9,7 +13,7 @@ export const NavigationBar = () => {
               <i className="bi-cart-fill me-1"></i>
               Cart
               <span className="badge bg-dark text-white ms-1 rounded-pill">
-                0
+                {props.CartQuantity}
               </span>
             </button>
           </form>
