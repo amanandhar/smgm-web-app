@@ -27,6 +27,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
       const cartQuantity = {
         productId: productId,
         quantity: value,
+        price: 0,
       };
       props?.onClick(cartQuantity);
     }
@@ -40,6 +41,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
       const cartQuantity = {
         productId: productId,
         quantity: value,
+        price: 0,
       };
       props?.onClick(cartQuantity);
     }
