@@ -10,7 +10,11 @@ export const CategorySlider = () => {
             alt=""
           />
         </button>
-        <div className="categories" id="categories">
+        <div
+          className="categories"
+          id="categories"
+          style={{ marginTop: "16px", marginLeft: "5px" }}
+        >
           <div className="active-ctg ctg">All</div>
           <div className="ctg">Spices</div>
           <div className="ctg">Beans</div>
@@ -19,17 +23,13 @@ export const CategorySlider = () => {
           <div className="ctg">Rice</div>
           <div className="ctg">Tea/Coffee</div>
         </div>
-        <div className="ctg">Surf</div>
-        <div className="ctg">Cold Drink/Juices</div>
-        <div className="ctg">Milk/Sugar</div>
-        <div className="ctg">Noodles</div>
+        <button id="right-btn" className="border-0">
+          <img
+            src="https://vyaparwebsiteimages.vypcdn.in/catalogue/right-arrow.svg"
+            alt=""
+          />
+        </button>
       </div>
-      <button id="right-btn" className="border-0">
-        <img
-          src="https://vyaparwebsiteimages.vypcdn.in/catalogue/right-arrow.svg"
-          alt=""
-        />
-      </button>
     </div>
   );
 };

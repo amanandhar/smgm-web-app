@@ -27,7 +27,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
       const cartQuantity = {
         productId: productId,
         quantity: value,
-        price: 0,
+        price: product?.price,
       };
       props?.onClick(cartQuantity);
     }
@@ -38,10 +38,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
     value: number
   ) => {
     if (props.onClick) {
+      const product = products.find((product) => product.id === productId);
       const cartQuantity = {
         productId: productId,
         quantity: value,
-        price: 0,
+        price: product?.price,
       };
       props?.onClick(cartQuantity);
     }

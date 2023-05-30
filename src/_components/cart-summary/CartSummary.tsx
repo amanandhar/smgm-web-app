@@ -19,6 +19,7 @@ export const CartSummary = (props: ICartSummaryProps) => {
 
     if (tempProductCart) {
       tempProductCart.quantity = props.productCart.quantity;
+      tempProductCart.price = props.productCart.price;
     } else {
       tempProductCarts.push({
         productId: props.productCart.productId,
@@ -33,7 +34,7 @@ export const CartSummary = (props: ICartSummaryProps) => {
     let totalPrice = 0;
     tempProductCarts.forEach((x) => {
       totalQuantity += x.quantity || 0;
-      totalPrice += x.price || 0;
+      totalPrice += (x.quantity || 0) * (x.price || 0);
     });
 
     setCartQuantity(totalQuantity);
@@ -59,6 +60,7 @@ export const CartSummary = (props: ICartSummaryProps) => {
           <div
             className="totalPrice bold text-truncate"
             style={{ fontSize: "14px" }}
+            title={cartPrice.toString()}
           >
             Rs. {cartPrice}
           </div>
