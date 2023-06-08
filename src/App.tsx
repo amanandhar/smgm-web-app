@@ -1,33 +1,17 @@
 import React from "react";
 import "./App.css";
-import { Product } from "./pages/product";
+import { Dashboard } from "./pages/dashboard";
+import { ProductCheckout } from "./pages/product-checkout";
 
-const ProductCountContext = React.createContext(0);
+const ProductCartContext = React.createContext({});
 
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <ProductCountContext.Provider value={0}>
-        <Product />
-      </ProductCountContext.Provider>
-
-      {/* <CategorySlider /> */}
-      {/* <ItemButton /> */}
-      {/* <ProductCheckout /> */}
+      <ProductCartContext.Provider value={0}>
+        {/* <Dashboard /> */}
+        <ProductCheckout />
+      </ProductCartContext.Provider>
     </div>
   );
 }

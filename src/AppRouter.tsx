@@ -4,7 +4,6 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { Product } from "./pages/product";
 import { ProductCart } from "./pages/product-cart";
 
 export default function AppRouter() {

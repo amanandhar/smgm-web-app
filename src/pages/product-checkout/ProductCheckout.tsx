@@ -1,131 +1,262 @@
+import { AddCartButton } from "../../_components/buttons/add-cart-button";
+import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
+import "./ProductCheckout.css";
+
 export const ProductCheckout = () => {
+  const handleAddCartButtonClick = (productId: number, value: number) => {};
+  const handleChangeQuantityButtonClick = (
+    productId: number,
+    value: number
+  ) => {};
   return (
     <>
-      <div className="container bootstrap snippets bootdey">
-        <div className="col-md-9 col-sm-8 content">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="panel panel-info panel-shadow">
-                <div className="panel-heading">
-                  <h3>
-                    <img
-                      className="img-circle img-thumbnail"
-                      src="https://bootdey.com/img/Content/user_3.jpg"
-                      alt=""
-                    />
-                    Matew darfkmoun
-                  </h3>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-9">
+            <div className="card border shadow-0">
+              <div className="m-3">
+                {/* <h3 className="card-title mb-4">Your shopping cart</h3> */}
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div>
+                    <strong>Your shopping cart</strong>
+                  </div>
+                  <div>23 items</div>
                 </div>
-                <div className="panel-body">
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Description</th>
-                          <th>Qty</th>
-                          <th>Price</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <img
-                              src="https://www.bootdey.com/image/400x200/FFB6C1/000000"
-                              className="img-cart"
-                              alt=""
-                            />
-                          </td>
-                          <td>
-                            <strong>Product 1</strong>
-                            <p>Size : 26</p>
-                          </td>
-                          <td>
-                            <form className="form-inline">
-                              <input
-                                className="form-control"
-                                type="text"
-                                value="1"
-                              />
-                              <button rel="tooltip" className="btn btn-default">
-                                <i className="fa fa-pencil"></i>
-                              </button>
-                              <a href="#!" className="btn btn-primary">
-                                <i className="fa fa-trash-o"></i>
-                              </a>
-                            </form>
-                          </td>
-                          <td>$54.00</td>
-                          <td>$54.00</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <img
-                              src="https://www.bootdey.com/image/400x200/87CEFA/000000"
-                              className="img-cart"
-                              alt=""
-                            />
-                          </td>
-                          <td>
-                            <strong>Product 2</strong>
-                            <p>Size : M</p>
-                          </td>
-                          <td>
-                            <form className="form-inline">
-                              <input
-                                className="form-control"
-                                type="text"
-                                value="2"
-                              />
-                              <button className="btn btn-default">
-                                <i className="fa fa-pencil"></i>
-                              </button>
-                              <a
-                                href="#!"
-                                className="btn btn-primary"
-                                rel="tooltip"
-                              >
-                                <i className="fa fa-trash-o"></i>
-                              </a>
-                            </form>
-                          </td>
-                          <td>$16.00</td>
-                          <td>$32.00</td>
-                        </tr>
-                        <tr>
-                          <td colSpan={6}>&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td colSpan={4} className="text-right">
-                            Total Product
-                          </td>
-                          <td>$86.00</td>
-                        </tr>
-                        <tr>
-                          <td colSpan={4} className="text-right">
-                            Total Shipping
-                          </td>
-                          <td>$2.00</td>
-                        </tr>
-                        <tr>
-                          <td colSpan={4} className="text-right">
-                            <strong>Total</strong>
-                          </td>
-                          <td>$88.00</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <hr />
+                <div className="row gy-3 mb-4">
+                  <div className="col-lg-5">
+                    <div className="me-lg-5">
+                      <div className="d-flex">
+                        <img
+                          src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/11.webp"
+                          className="border rounded me-3"
+                          style={{ width: "96px", height: "96px" }}
+                        />
+                        <div className="">
+                          <a href="#" className="nav-link">
+                            Winter jacket for men and lady
+                          </a>
+                          <p className="text-muted">Yellow, Jeans</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                    <div
+                      className=""
+                      style={{ minWidth: "120px", padding: "5px" }}
+                    >
+                      <text className="h6">$1156.00</text> <br />
+                      <small className="text-muted text-nowrap">
+                        {" "}
+                        $460.00 / per item{" "}
+                      </small>
+                    </div>
+                    <div className="" style={{ padding: "5px" }}>
+                      <ChangeQuantityButton
+                        onClick={(value) =>
+                          handleChangeQuantityButtonClick(0, value)
+                        }
+                      />
+                    </div>
+                    <div className="float-md-end" style={{ padding: "5px" }}>
+                      <a
+                        href="#"
+                        className="btn btn-light border text-danger icon-hover-danger"
+                      >
+                        {" "}
+                        Remove
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row gy-3 mb-4">
+                  <div className="col-lg-5">
+                    <div className="me-lg-5">
+                      <div className="d-flex">
+                        <img
+                          src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/12.webp"
+                          className="border rounded me-3"
+                          style={{ width: "96px", height: "96px" }}
+                        />
+                        <div className="">
+                          <a href="#" className="nav-link">
+                            Mens T-shirt Cotton Base
+                          </a>
+                          <p className="text-muted">Blue, Medium</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
+                    style={{ padding: "10px" }}
+                  >
+                    <div
+                      className=""
+                      style={{ minWidth: "120px", padding: "5px" }}
+                    >
+                      <text className="h6">$44.80</text> <br />
+                      <small className="text-muted text-nowrap">
+                        {" "}
+                        $12.20 / per item{" "}
+                      </small>
+                    </div>
+                    <div className="" style={{ padding: "5px" }}>
+                      <ChangeQuantityButton
+                        onClick={(value) =>
+                          handleChangeQuantityButtonClick(0, value)
+                        }
+                      />
+                    </div>
+                    <div className="float-md-end" style={{ padding: "5px" }}>
+                      <a
+                        href="#"
+                        className="btn btn-light border text-danger icon-hover-danger"
+                      >
+                        {" "}
+                        Remove
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row gy-3">
+                  <div className="col-lg-5">
+                    <div className="me-lg-5">
+                      <div className="d-flex">
+                        <img
+                          src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/13.webp"
+                          className="border rounded me-3"
+                          style={{ width: "96px", height: "96px" }}
+                        />
+                        <div className="">
+                          <a href="#" className="nav-link">
+                            Blazer Suit Dress Jacket for Men
+                          </a>
+                          <p className="text-muted">XL size, Jeans, Blue</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap"
+                    style={{ padding: "10px" }}
+                  >
+                    <div
+                      className=""
+                      style={{ minWidth: "120px", padding: "5px" }}
+                    >
+                      <text className="h6">$1156.00</text> <br />
+                      <small className="text-muted text-nowrap">
+                        {" "}
+                        $460.00 / per item{" "}
+                      </small>
+                    </div>
+                    <div className="" style={{ padding: "5px" }}>
+                      <ChangeQuantityButton
+                        onClick={(value) =>
+                          handleChangeQuantityButtonClick(0, value)
+                        }
+                      />
+                    </div>
+                    <div className="float-md-end" style={{ padding: "5px" }}>
+                      <a
+                        href="#"
+                        className="btn btn-light border text-danger icon-hover-danger"
+                      >
+                        {" "}
+                        Remove
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-              <a href="#!" className="btn btn-success">
-                <span className="glyphicon glyphicon-arrow-left"></span>
-                &nbsp;Continue Shopping
-              </a>
-              <a href="#!" className="btn btn-primary pull-right">
-                Next<span className="glyphicon glyphicon-chevron-right"></span>
-              </a>
+
+              <div className="border-top pt-4 mx-4 mb-4">
+                <p>
+                  <i className="fas fa-truck text-muted fa-lg"></i> Free
+                  Delivery within 1-2 weeks
+                </p>
+                <p className="text-muted">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-3">
+            <div className="card mb-3 border shadow-0">
+              <div className="card-body">
+                <form>
+                  <div className="form-group">
+                    <label>
+                      <strong>Delivery Address</strong>
+                    </label>
+                    <hr />
+                    <div className="input-group" style={{ padding: "2px" }}>
+                      <input
+                        type="text"
+                        className="form-control border"
+                        name=""
+                        placeholder="Name*"
+                      />
+                    </div>
+                    <div className="input-group" style={{ padding: "2px" }}>
+                      <input
+                        type="text"
+                        className="form-control border"
+                        name=""
+                        placeholder="Contact Number*"
+                      />
+                    </div>
+                    <div className="input-group" style={{ padding: "2px" }}>
+                      <textarea
+                        className="form-control border"
+                        name=""
+                        placeholder="Address*"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="card shadow-0 border">
+              <div className="card-body">
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Sub Total:</p>
+                  <p className="mb-2">$329.00</p>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Discount:</p>
+                  <p className="mb-2 text-success">-$60.00</p>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">TAX:</p>
+                  <p className="mb-2">$14.00</p>
+                </div>
+                <hr />
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Total price:</p>
+                  <p className="mb-2 fw-bold">$283.00</p>
+                </div>
+
+                <div className="mt-3">
+                  <a href="#" className="btn btn-success w-100 shadow-0 mb-2">
+                    {" "}
+                    Place Order{" "}
+                  </a>
+                  <a href="#" className="btn btn-light w-100 border mt-2">
+                    {" "}
+                    Continue shopping{" "}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

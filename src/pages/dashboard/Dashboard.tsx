@@ -5,9 +5,9 @@ import { CategorySlider } from "../../_components/category-slider";
 import { Header } from "../../_components/header";
 import { SearchBar } from "../../_components/search-bar";
 import { ProductCatalog } from "../product-catalog";
-import "./Product.css";
+import "./Dashboard.css";
 
-export const Product = () => {
+export const Dashboard = () => {
   const [productCarts, setProductCarts] = useState<ProductCart>({
     productId: 0,
     quantity: 0,
