@@ -12,10 +12,28 @@ export const Header = () => {
             style={{ padding: "2px" }}
           />
         </label>
-        <label style={{ fontSize: "12px" }}>
-          Nayabazar-16, Kathmandu, Email: samyuktamanab.grocery@gmail.com,
-          Phone: 01-4351920, Whatsapp/Viber :9841862943
-        </label>
+        <div>
+          <label style={{ fontSize: "12px" }}>
+            <img
+              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/mail-new.svg"
+              alt=""
+              className=""
+            />
+            samyuktamanab.grocery@gmail.com, {"   "}
+            <img
+              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/phone.svg"
+              alt=""
+              className="mr-1 "
+            />
+            01-4351920, {"   "}
+            <img
+              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/whatsapp-new.svg"
+              alt=""
+              className="mr-1"
+            />
+            9841862943
+          </label>
+        </div>
       </div>
     </nav>
   );

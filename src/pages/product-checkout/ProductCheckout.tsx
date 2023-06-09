@@ -264,7 +264,8 @@ export const ProductCheckout = () => {
                     className="btn w-100 btn-primary shadow-0 mb-2 disabled"
                   >
                     {" "}
-                    Place Order{" "}
+                    Place Order <br />
+                    (Cash On Delivery)
                   </a>
                   <a
                     href="#"
