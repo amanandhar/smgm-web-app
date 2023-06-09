@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ProductCart } from "../../models/ProductCart.model";
 import "./CartSummary.css";
 
@@ -10,6 +11,8 @@ export const CartSummary = (props: ICartSummaryProps) => {
   const [productCarts, setProductCarts] = useState<ProductCart[]>([]);
   const [cartQuantity, setCartQuantity] = useState<number>(0);
   const [cartPrice, setCartPrice] = useState<number>(0);
+
+  const history = useHistory();
 
   useEffect(() => {
     const tempProductCarts = productCarts;
@@ -40,6 +43,10 @@ export const CartSummary = (props: ICartSummaryProps) => {
     setCartQuantity(totalQuantity);
     setCartPrice(totalPrice);
   }, [props.productCart]);
+
+  const handleViewCartClick = () => {
+    history.push("cart");
+  };
 
   return (
     <div>
@@ -78,7 +85,9 @@ export const CartSummary = (props: ICartSummaryProps) => {
             alt=""
             className="mr-3"
           />{" "}
-          <span style={{ paddingLeft: "5px" }}>View cart</span>
+          <span style={{ paddingLeft: "5px" }} onClick={handleViewCartClick}>
+            View cart
+          </span>
         </div>
       </div>
     </div>

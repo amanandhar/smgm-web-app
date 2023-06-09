@@ -1,16 +1,24 @@
+import { useHistory } from "react-router-dom";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
+import { Header } from "../../_components/header";
 import "./ProductCheckout.css";
 
 export const ProductCheckout = () => {
+  const history = useHistory();
   const handleAddCartButtonClick = (productId: number, value: number) => {};
   const handleChangeQuantityButtonClick = (
     productId: number,
     value: number
   ) => {};
+
+  const handleContinueShopping = () => {
+    history.push("dashboard");
+  };
   return (
     <>
-      <div className="container">
+      <Header />
+      <div className="container" style={{ padding: "15px" }}>
         <div className="row">
           <div className="col-lg-9">
             <div className="card border shadow-0">
@@ -240,6 +248,10 @@ export const ProductCheckout = () => {
                   <p className="mb-2">TAX:</p>
                   <p className="mb-2">$14.00</p>
                 </div>
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Delivery Charge:</p>
+                  <p className="mb-2">$10.00</p>
+                </div>
                 <hr />
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Total price:</p>
@@ -247,11 +259,18 @@ export const ProductCheckout = () => {
                 </div>
 
                 <div className="mt-3">
-                  <a href="#" className="btn btn-success w-100 shadow-0 mb-2">
+                  <a
+                    href="#"
+                    className="btn w-100 btn-primary shadow-0 mb-2 disabled"
+                  >
                     {" "}
                     Place Order{" "}
                   </a>
-                  <a href="#" className="btn btn-light w-100 border mt-2">
+                  <a
+                    href="#"
+                    className="btn btn-secondary w-100 border mt-2"
+                    onClick={handleContinueShopping}
+                  >
                     {" "}
                     Continue shopping{" "}
                   </a>

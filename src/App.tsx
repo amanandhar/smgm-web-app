@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Dashboard } from "./pages/dashboard";
-import { ProductCheckout } from "./pages/product-checkout";
+import AppRouter from "./AppRouter";
 
 const ProductCartContext = React.createContext({});
 
@@ -9,8 +8,7 @@ function App() {
   return (
     <div className="App">
       <ProductCartContext.Provider value={0}>
-        {/* <Dashboard /> */}
-        <ProductCheckout />
+        <AppRouter />
       </ProductCartContext.Provider>
     </div>
   );
