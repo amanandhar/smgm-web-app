@@ -8,7 +8,7 @@ export const SearchBar = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search for an item"
+          placeholder="Search item"
         />
       </div>
     </div>

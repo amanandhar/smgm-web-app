@@ -280,7 +280,7 @@ export const ProductCheckout = () => {
                   >
                     {" "}
                     Place Order <br />
-                    (Cash On Delivery)
+                    <label style={{fontSize: "12px"}}>(Cash On Delivery)</label>
                   </a>
                   <a
                     href="#"
