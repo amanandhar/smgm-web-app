@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProductCartContext = React.createContext({});
 

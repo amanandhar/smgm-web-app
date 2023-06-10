@@ -1,20 +1,34 @@
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
 import { Header } from "../../_components/header";
+import { ModalDialog } from "../../_components/modal-dialog";
 import "./ProductCheckout.css";
 
 export const ProductCheckout = () => {
   const history = useHistory();
+
+  const [showModalDialog, setShowModalDialog] = useState<boolean>(false);
   const handleAddCartButtonClick = (productId: number, value: number) => {};
   const handleChangeQuantityButtonClick = (
     productId: number,
     value: number
   ) => {};
 
+  const handleOrder = () => {
+    setShowModalDialog(true);
+  };
+
   const handleContinueShopping = () => {
     history.push("dashboard");
   };
+
+  const handleModalDialogClose = () => {
+    setShowModalDialog(false);
+    history.push("dashboard");
+  };
+
   return (
     <>
       <Header />
@@ -261,7 +275,8 @@ export const ProductCheckout = () => {
                 <div className="mt-3">
                   <a
                     href="#"
-                    className="btn w-100 btn-primary shadow-0 mb-2 disabled"
+                    className="btn w-100 btn-primary shadow-0 mb-2"
+                    onClick={handleOrder}
                   >
                     {" "}
                     Place Order <br />
@@ -281,6 +296,10 @@ export const ProductCheckout = () => {
           </div>
         </div>
       </div>
+
+      {showModalDialog && (
+        <ModalDialog show={showModalDialog} onClose={handleModalDialogClose} />
+      )}
     </>
   );
 };

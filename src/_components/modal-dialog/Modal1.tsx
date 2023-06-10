@@ -1,6 +1,6 @@
-import "./Modal.scss";
+import "./Modal1.scss";
 
-export const Modal = () => {
+export const Modal1 = () => {
   return (
     <>
       <div
