@@ -2,13 +2,15 @@ import { useEffect, useState, useContext } from "react";
 import { Product } from "../../models/Product.model";
 import { AddCartButton } from "../buttons/add-cart-button";
 import { UpdateQuantityButton } from "../buttons/update-quantity-button";
-import { ProductContext } from "../../context/ProductContext";
+import { IProductContext, ProductContext } from "../../context/ProductContext";
 import data from "../../data/product/ProductData";
 
 export const ProductCatalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const { contextProducts, updateContextProducts } = useContext(ProductContext);
+  const { contextProducts, updateContextProducts } = useContext<
+    IProductContext
+  >(ProductContext);
 
   useEffect(() => {
     const newProducts: Product[] = data.products.map((product) => {

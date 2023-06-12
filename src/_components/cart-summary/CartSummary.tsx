@@ -31,48 +31,53 @@ export const CartSummary = () => {
 
   return (
     <>
-      <div>
-        <div
-          className="d-flex justify-content-between fixed-bottom px-4 fixed-bottom viewCart"
-          style={{ marginBottom: "10px" }}
-        >
-          <div className="d-flex text-white">
-            <div className="numberOfItems cart-items-count fs-12">
-              {cartQuantity} Items
+      {productContext.contextProducts.length > 0 && (
+        <div>
+          <div
+            className="d-flex justify-content-between fixed-bottom px-4 fixed-bottom viewCart"
+            style={{ marginBottom: "10px" }}
+          >
+            <div className="d-flex text-white">
+              <div className="numberOfItems cart-items-count fs-12">
+                {cartQuantity} Items
+              </div>
+              <img
+                src={process.env.PUBLIC_URL + "/images/icons/ellipse.svg"}
+                alt=""
+                className="mx-2"
+                style={{ width: "4px" }}
+              />
+              <div
+                className="totalPrice bold text-truncate"
+                style={{ fontSize: "14px" }}
+                title={cartPrice.toString()}
+              >
+                Rs. {cartPrice}
+              </div>
             </div>
-            <img
-              src={process.env.PUBLIC_URL + "/images/icons/ellipse.svg"}
-              alt=""
-              className="mx-2"
-              style={{ width: "4px" }}
-            />
-            <div
-              className="totalPrice bold text-truncate"
-              style={{ fontSize: "14px" }}
-              title={cartPrice.toString()}
-            >
-              Rs. {cartPrice}
+            <div className="border-left border-white d-none d-sm-block m-2"></div>
+            <div className="text-decoration-none text-white bold fs-15">
+              <span
+                className="badge badge-light badge-pill bg-danger text-white border border-white"
+                style={{ position: "absolute", margin: "8px 10px" }}
+              >
+                {cartQuantity}
+              </span>
+              <img
+                src={process.env.PUBLIC_URL + "/images/icons/cart.svg"}
+                alt=""
+                className="mr-3"
+              />{" "}
+              <span
+                style={{ paddingLeft: "5px" }}
+                onClick={handleViewCartClick}
+              >
+                View cart
+              </span>
             </div>
-          </div>
-          <div className="border-left border-white d-none d-sm-block m-2"></div>
-          <div className="text-decoration-none text-white bold fs-15">
-            <span
-              className="badge badge-light badge-pill bg-danger text-white border border-white"
-              style={{ position: "absolute", margin: "8px 10px" }}
-            >
-              {cartQuantity}
-            </span>
-            <img
-              src={process.env.PUBLIC_URL + "/images/icons/cart.svg"}
-              alt=""
-              className="mr-3"
-            />{" "}
-            <span style={{ paddingLeft: "5px" }} onClick={handleViewCartClick}>
-              View cart
-            </span>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

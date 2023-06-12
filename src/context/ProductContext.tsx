@@ -23,7 +23,8 @@ export const ProductContextProvider = (props: {
   const [contextProducts, setContextProducts] = useState<Product[]>([]);
 
   const updateContextProducts = (products: Product[]) => {
-    setContextProducts(products);
+    const tempProducts = [...products];
+    setContextProducts(tempProducts);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { IProductContext, ProductContext } from "../../context/ProductContext";
 import { Product } from "../../models/Product.model";
@@ -9,15 +9,44 @@ import "./ProductCart.css";
 
 export const ProductCart = () => {
   const history = useHistory();
-  const productContext = useContext<IProductContext>(ProductContext);
+  const { contextProducts, updateContextProducts } = useContext<
+    IProductContext
+  >(ProductContext);
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [subTotal, setSubTotal] = useState<number>(0.0);
+  const [deliveryCharge, setDeliveryCharge] = useState<number>(0.0);
+
+  const [name, setName] = useState<string>("");
+  const [contactNumber, setContactNumber] = useState<number>();
+  const [address, setAddress] = useState<string>("");
+  const [enableOrderButton, setEnableOrderButton] = useState<boolean>(false);
   const [showModalDialog, setShowModalDialog] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (name && contactNumber && address) {
+      setEnableOrderButton(true);
+    }
+  }, [name, contactNumber, address]);
+
   const handleAddCartButtonClick = (productId: number, value: number) => {};
   const handleChangeQuantityButtonClick = (
     productId: number,
     value: number
-  ) => {};
+  ) => {
+    updateProducts(productId, value);
+
+    let subTotal = 0;
+
+    const products = contextProducts;
+
+    products.forEach((product) => {
+      subTotal += (product.addedQuantity || 0) * (product.price || 0);
+    });
+
+    setSubTotal(subTotal);
+    setDeliveryCharge(10.0);
+  };
 
   const handleOrder = () => {
     setShowModalDialog(true);
@@ -32,7 +61,16 @@ export const ProductCart = () => {
     history.push("dashboard");
   };
 
-  console.log();
+  const updateProducts = (productId: number, value: number) => {
+    const contextIndex = contextProducts.findIndex(
+      (product) => product.id === productId
+    );
+    if (contextIndex >= 0) {
+      let tempContextProducts = [...contextProducts];
+      tempContextProducts[contextIndex].addedQuantity = value;
+      updateContextProducts(tempContextProducts);
+    }
+  };
 
   return (
     <>
@@ -48,7 +86,7 @@ export const ProductCart = () => {
                     <strong>Your shopping cart</strong>
                   </div>
                   <div>
-                    {productContext.contextProducts.reduce(
+                    {contextProducts.reduce(
                       (a, b) => a + (b["addedQuantity"] || 0),
                       0
                     )}{" "}
@@ -56,7 +94,7 @@ export const ProductCart = () => {
                   </div>
                 </div>
                 <hr />
-                {productContext.contextProducts.map((product, index) => (
+                {contextProducts.map((product, index) => (
                   <div key={index} className="row gy-3 mb-4">
                     <div className="col-lg-5">
                       <div className="me-lg-5">
@@ -64,7 +102,7 @@ export const ProductCart = () => {
                           <img
                             src={
                               process.env.PUBLIC_URL +
-                              "/images/dummy/product/item1.webp"
+                              "/images/dummy/product-image-placeholder.jpg"
                             }
                             className="border rounded me-3"
                             style={{ width: "96px", height: "96px" }}
@@ -89,15 +127,17 @@ export const ProductCart = () => {
                         </text>{" "}
                         <br />
                         <small className="text-muted text-nowrap">
-                          {" "}
-                          Rs{product.price} / per item{" "}
+                          Rs {product.price}/per item{" "}
                         </small>
                       </div>
                       <div className="" style={{ padding: "5px" }}>
                         <UpdateQuantityButton
                           value={product.addedQuantity || 0}
                           onClick={(value) =>
-                            handleChangeQuantityButtonClick(0, value)
+                            handleChangeQuantityButtonClick(
+                              product.id || 0,
+                              value
+                            )
                           }
                         />
                       </div>
@@ -169,7 +209,7 @@ export const ProductCart = () => {
               <div className="card-body">
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Sub Total:</p>
-                  <p className="mb-2">Rs 329.00</p>
+                  <p className="mb-2">Rs {subTotal}</p>
                 </div>
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Discount:</p>
@@ -181,12 +221,12 @@ export const ProductCart = () => {
                 </div>
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Delivery Charge:</p>
-                  <p className="mb-2">Rs 10.00</p>
+                  <p className="mb-2">Rs {deliveryCharge}</p>
                 </div>
                 <hr />
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Total price:</p>
-                  <p className="mb-2 fw-bold">Rs 283.00</p>
+                  <p className="mb-2 fw-bold">Rs {subTotal + deliveryCharge}</p>
                 </div>
 
                 <div className="mt-3">
