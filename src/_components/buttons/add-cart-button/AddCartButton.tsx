@@ -12,7 +12,7 @@ export const AddCartButton = (props: IAddCartButtonProps) => {
       onClick={props.onClick}
     >
       <img
-        src="https://vyaparwebsiteimages.vypcdn.in/catalogue/plus-blue.svg"
+        src={process.env.PUBLIC_URL + "/images/icons/plus.svg"}
         alt=""
         className="plusIcon"
       />

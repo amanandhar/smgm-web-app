@@ -1,12 +1,13 @@
 import { useState } from "react";
-import "./ChangeQuantityButton.css";
+import "./UpdateQuantityButton.css";
 
-export interface IChangeQuantityButtonProps {
+export interface IUpdateQuantityButtonProps {
+  value?: number;
   onClick: (value: number) => void;
 }
 
-export const ChangeQuantityButton = (props: IChangeQuantityButtonProps) => {
-  const [value, setValue] = useState<number>(1);
+export const UpdateQuantityButton = (props: IUpdateQuantityButtonProps) => {
+  const [value, setValue] = useState<number>(props.value || 1);
 
   const handleDecrementOnClick = () => {
     if (value !== 0) {
@@ -24,11 +25,11 @@ export const ChangeQuantityButton = (props: IChangeQuantityButtonProps) => {
     <div className="qttyWrapper632b2d780542f234 qttyWrapper justify-content-around no-outline d-flex">
       <button
         className="decrementBtn center"
-        style={{ outline: "0" }}
+        style={{ outline: "0", cursor: "pointer" }}
         onClick={handleDecrementOnClick}
       >
         <img
-          src="https://vyaparwebsiteimages.vypcdn.in/catalogue/minus.svg"
+          src={process.env.PUBLIC_URL + "/images/icons/minus.svg"}
           alt=""
           className="w-11 h-11"
         />
@@ -43,11 +44,11 @@ export const ChangeQuantityButton = (props: IChangeQuantityButtonProps) => {
 
       <button
         className="incrementBtn center"
-        style={{ outline: "0" }}
+        style={{ outline: "0", cursor: "pointer" }}
         onClick={handleIncrementOnClick}
       >
         <img
-          src="https://vyaparwebsiteimages.vypcdn.in/catalogue/plus-blue.svg"
+          src={process.env.PUBLIC_URL + "/images/icons/plus.svg"}
           alt=""
           className="w-11 h-11"
         />

@@ -6,7 +6,7 @@ export const CategorySlider = () => {
       <div className="d-flex">
         <button id="left-btn" className="border-0">
           <img
-            src="https://vyaparwebsiteimages.vypcdn.in/catalogue/left-arrow.svg"
+            src={process.env.PUBLIC_URL + "/images/icons/left-arrow.svg"}
             alt=""
           />
         </button>
@@ -25,7 +25,7 @@ export const CategorySlider = () => {
         </div>
         <button id="right-btn" className="border-0">
           <img
-            src="https://vyaparwebsiteimages.vypcdn.in/catalogue/right-arrow.svg"
+            src={process.env.PUBLIC_URL + "/images/icons/right-arrow.svg"}
             alt=""
           />
         </button>

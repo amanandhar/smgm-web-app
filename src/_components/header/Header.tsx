@@ -15,19 +15,19 @@ export const Header = () => {
         <div>
           <label style={{ fontSize: "12px" }}>
             <img
-              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/mail-new.svg"
+              src={process.env.PUBLIC_URL + "/images/icons/mail.svg"}
               alt=""
               className=""
             />
             samyuktamanab.grocery@gmail.com, {"   "}
             <img
-              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/phone.svg"
+              src={process.env.PUBLIC_URL + "/images/icons/phone.svg"}
               alt=""
               className="mr-1 "
             />
             01-4351920, {"   "}
             <img
-              src="https://vyaparwebsiteimages.vypcdn.in/catalogue/whatsapp-new.svg"
+              src={process.env.PUBLIC_URL + "/images/icons/whatsapp.svg"}
               alt=""
               className="mr-1"
             />

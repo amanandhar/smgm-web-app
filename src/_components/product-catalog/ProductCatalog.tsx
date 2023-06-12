@@ -1,50 +1,63 @@
-import { useEffect, useState } from "react";
-import data from "../../data/product/ProductData";
-import { ProductCart } from "../../models/ProductCart.model";
+import { useEffect, useState, useContext } from "react";
 import { Product } from "../../models/Product.model";
-import { AddCartButton } from "../../_components/buttons/add-cart-button";
-import { ChangeQuantityButton } from "../../_components/buttons/change-quantity-button";
+import { AddCartButton } from "../buttons/add-cart-button";
+import { UpdateQuantityButton } from "../buttons/update-quantity-button";
+import { ProductContext } from "../../context/ProductContext";
+import data from "../../data/product/ProductData";
 
-export interface IProductCatalogProps {
-  onClick: (productCarts: ProductCart) => void;
-}
-
-export const ProductCatalog = (props: IProductCatalogProps) => {
+export const ProductCatalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
+  const { contextProducts, updateContextProducts } = useContext(ProductContext);
+
   useEffect(() => {
-    setProducts(data.products);
+    const newProducts: Product[] = data.products.map((product) => {
+      return {
+        id: product.id,
+        itemCode: product.itemCode,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        addedQuantity: 0,
+        isButtonEnabled: false,
+      };
+    });
+    setProducts(newProducts);
   }, []);
 
   const handleAddCartButtonClick = (productId: number, value: number) => {
-    const product = products.find((product) => product.id === productId);
-    if (product) {
-      product.isButtonEnabled = true;
-      setProducts([...products, product]);
-    }
-
-    if (props.onClick) {
-      const cartQuantity = {
-        productId: productId,
-        quantity: value,
-        price: product?.price,
-      };
-      props?.onClick(cartQuantity);
-    }
+    updateProducts(productId, value);
   };
 
   const handleChangeQuantityButtonClick = (
     productId: number,
     value: number
   ) => {
-    if (props.onClick) {
-      const product = products.find((product) => product.id === productId);
-      const cartQuantity = {
-        productId: productId,
-        quantity: value,
-        price: product?.price,
-      };
-      props?.onClick(cartQuantity);
+    updateProducts(productId, value);
+  };
+
+  const updateProducts = (productId: number, value: number) => {
+    const index = products.findIndex((product) => product.id === productId);
+    if (index >= 0) {
+      let tempProducts = [...products];
+      tempProducts[index].isButtonEnabled = true;
+      setProducts(tempProducts);
+
+      const contextIndex = contextProducts.findIndex(
+        (product) => product.id === productId
+      );
+      if (contextIndex >= 0) {
+        let tempContextProducts = [...contextProducts];
+        tempContextProducts[contextIndex].addedQuantity = value;
+        updateContextProducts(tempContextProducts);
+      } else {
+        const product = products.find((product) => product.id === productId);
+        if (product) {
+          product.addedQuantity = value;
+          contextProducts.push(product);
+          updateContextProducts(contextProducts);
+        }
+      }
     }
   };
 
@@ -57,7 +70,10 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
               <div className="card h-100">
                 <img
                   className="card-img-top"
-                  src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/images/dummy/product-image-placeholder.jpg"
+                  }
                   alt={product.name}
                 />
                 <div className="card-body p-4">
@@ -71,7 +87,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                   <div className="text-center">
                     <div className="btn mt-auto">
                       {product.isButtonEnabled && (
-                        <ChangeQuantityButton
+                        <UpdateQuantityButton
                           onClick={(value) =>
                             handleChangeQuantityButtonClick(
                               product.id || 0,

@@ -1,5 +1,3 @@
-import { Product } from "../../models/Product.model";
-
 const data = {
   products: [
     {
@@ -8,7 +6,6 @@ const data = {
       itemCode: "10.001001.01",
       price: 999,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 2,
@@ -16,7 +13,6 @@ const data = {
       itemCode: "10.001001.02",
       price: 899,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 3,
@@ -24,7 +20,6 @@ const data = {
       itemCode: "10.001001.03",
       price: 799,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 4,
@@ -32,7 +27,6 @@ const data = {
       itemCode: "10.001001.04",
       price: 1199,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 5,
@@ -40,7 +34,6 @@ const data = {
       name: "Samsung",
       price: 1099,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 6,
@@ -48,7 +41,6 @@ const data = {
       name: "One Plus",
       price: 1299,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 7,
@@ -56,7 +48,6 @@ const data = {
       name: "Macbook Pro",
       price: 2299,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 8,
@@ -64,7 +55,6 @@ const data = {
       name: "Acer Laptop",
       price: 1099,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 9,
@@ -72,7 +62,6 @@ const data = {
       name: "Asus Laptop",
       price: 1299,
       image: "",
-      isButtonEnabled: false,
     },
     {
       id: 10,
@@ -80,7 +69,6 @@ const data = {
       name: "Lenevo Laptop",
       price: 1199,
       image: "",
-      isButtonEnabled: false,
     },
   ],
 };
