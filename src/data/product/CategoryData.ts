@@ -76,6 +76,10 @@ const data = {
       id: 19,
       name: "Soap",
     },
+    {
+      id: 20,
+      name: "Namkeens",
+    },
   ],
 };
 
