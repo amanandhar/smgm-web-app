@@ -15,7 +15,9 @@ export const ProductCheckout = () => {
 
   return (
     <>
-      <Header />
+      <div className="sticky-container">
+        <Header />
+      </div>
       <ProductCart />
       {showModalDialog && (
         <ModalDialog show={showModalDialog} onClose={handleModalDialogClose} />

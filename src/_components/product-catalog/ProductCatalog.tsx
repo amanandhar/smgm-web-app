@@ -4,6 +4,7 @@ import { AddCartButton } from "../buttons/add-cart-button";
 import { UpdateQuantityButton } from "../buttons/update-quantity-button";
 import { IProductContext, ProductContext } from "../../context/ProductContext";
 import data from "../../data/product/ProductData";
+import "./ProductCatalog.css";
 
 export const ProductCatalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -20,6 +21,7 @@ export const ProductCatalog = () => {
         name: product.name,
         price: product.price,
         image: product.image,
+        categoryId: product.categoryId,
         addedQuantity: 0,
         isButtonEnabled: false,
       };

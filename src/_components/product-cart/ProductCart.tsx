@@ -24,8 +24,19 @@ export const ProductCart = () => {
   const [showModalDialog, setShowModalDialog] = useState<boolean>(false);
 
   useEffect(() => {
+    if (contextProducts.length === 0) {
+      history.push("/");
+    } else {
+      updateSubTotal();
+      setDeliveryCharge(10.0);
+    }
+  }, []);
+
+  useEffect(() => {
     if (name && contactNumber && address) {
       setEnableOrderButton(true);
+    } else {
+      setEnableOrderButton(false);
     }
   }, [name, contactNumber, address]);
 
@@ -35,17 +46,7 @@ export const ProductCart = () => {
     value: number
   ) => {
     updateProducts(productId, value);
-
-    let subTotal = 0;
-
-    const products = contextProducts;
-
-    products.forEach((product) => {
-      subTotal += (product.addedQuantity || 0) * (product.price || 0);
-    });
-
-    setSubTotal(subTotal);
-    setDeliveryCharge(10.0);
+    updateSubTotal();
   };
 
   const handleOrder = () => {
@@ -72,6 +73,15 @@ export const ProductCart = () => {
     }
   };
 
+  const updateSubTotal = () => {
+    let subTotal = 0;
+    contextProducts.forEach((product) => {
+      subTotal += (product.addedQuantity || 0) * (product.price || 0);
+    });
+
+    setSubTotal(subTotal);
+  };
+
   return (
     <>
       <div className="container" style={{ padding: "15px" }}>
@@ -90,7 +100,7 @@ export const ProductCart = () => {
                       (a, b) => a + (b["addedQuantity"] || 0),
                       0
                     )}{" "}
-                    items
+                    item/s
                   </div>
                 </div>
                 <hr />
@@ -157,15 +167,10 @@ export const ProductCart = () => {
 
               <div className="border-top pt-4 mx-4 mb-4">
                 <p>
-                  <i className="fas fa-truck text-muted fa-lg"></i> Free
-                  Delivery within 1-2 weeks
+                  <i className="fas fa-truck text-muted fa-lg"></i> Items will
+                  be delivered within 2-3 business days!
                 </p>
-                <p className="text-muted">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip
-                </p>
+                <p className="text-muted"></p>
               </div>
             </div>
           </div>
@@ -184,6 +189,7 @@ export const ProductCart = () => {
                         className="form-control border"
                         name=""
                         placeholder="Name*"
+                        onChange={(e: any) => setName(e.target.value)}
                       />
                     </div>
                     <div className="input-group" style={{ padding: "2px" }}>
@@ -192,6 +198,7 @@ export const ProductCart = () => {
                         className="form-control border"
                         name=""
                         placeholder="Contact Number*"
+                        onChange={(e: any) => setContactNumber(e.target.value)}
                       />
                     </div>
                     <div className="input-group" style={{ padding: "2px" }}>
@@ -199,6 +206,7 @@ export const ProductCart = () => {
                         className="form-control border"
                         name=""
                         placeholder="Address*"
+                        onChange={(e: any) => setAddress(e.target.value)}
                       />
                     </div>
                   </div>
@@ -232,7 +240,10 @@ export const ProductCart = () => {
                 <div className="mt-3">
                   <a
                     href="#"
-                    className="btn w-100 btn-primary shadow-0 mb-2"
+                    className={
+                      "btn w-100 btn-primary shadow-0 mb-2 " +
+                      (enableOrderButton ? "" : "disabled")
+                    }
                     onClick={handleOrder}
                   >
                     {" "}

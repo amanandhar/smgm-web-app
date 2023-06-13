@@ -5,10 +5,16 @@
   justify-content: center;
 }
 
+.categories-content {
+  margin: auto;
+  width: 50%;
+  padding: 5px;
+}
+/* Custom styles - ends */
+
 .d-flex {
   display: flex !important;
 }
-/* Custom styles - ends */
 
 .modal {
   padding-right: 0 !important;
@@ -16,7 +22,7 @@
 }
 
 .modal-content {
-  width: 85%;
+  width: 50%;
 }
 
 .modal-dialog {

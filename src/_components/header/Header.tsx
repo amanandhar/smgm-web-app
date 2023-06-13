@@ -1,9 +1,20 @@
+import { useHistory } from "react-router-dom";
+import "./Header.css";
+
 export const Header = () => {
+  const history = useHistory();
+
+  const handleTitleClick = () => {
+    history.push("/");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
         <label className="navbar-brand">
-          SMGM - Online Grocery Store
+          <label onClick={handleTitleClick} className="smgm-title">
+            SMGM - Online Grocery Store
+          </label>
           <img
             width="30"
             height="30"

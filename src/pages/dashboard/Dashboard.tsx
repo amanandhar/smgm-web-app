@@ -8,7 +8,7 @@ import "./Dashboard.css";
 export const Dashboard = () => {
   return (
     <>
-      <div className="sticky">
+      <div className="sticky-container">
         <Header />
         <SearchBar />
         <CategorySlider />

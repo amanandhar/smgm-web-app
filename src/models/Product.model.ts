@@ -4,6 +4,7 @@ export class Product {
   name: string | undefined;
   price: number | undefined;
   image: string | undefined;
+  categoryId: number | undefined;
   addedQuantity: number | undefined;
   isButtonEnabled: boolean | false | undefined;
 }
