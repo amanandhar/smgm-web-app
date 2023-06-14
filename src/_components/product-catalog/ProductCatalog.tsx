@@ -6,7 +6,12 @@ import { IProductContext, ProductContext } from "../../context/ProductContext";
 import data from "../../data/product/ProductData";
 import "./ProductCatalog.css";
 
-export const ProductCatalog = () => {
+export interface IProductCatalogProps {
+  searchText: string;
+  categoryId: number;
+}
+
+export const ProductCatalog = (props: IProductCatalogProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const { contextProducts, updateContextProducts } = useContext<
@@ -14,20 +19,33 @@ export const ProductCatalog = () => {
   >(ProductContext);
 
   useEffect(() => {
-    const newProducts: Product[] = data.products.map((product) => {
-      return {
-        id: product.id,
-        itemCode: product.itemCode,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        categoryId: product.categoryId,
-        addedQuantity: 0,
-        isButtonEnabled: false,
-      };
-    });
+    const newProducts = data.products
+      .filter(
+        (product) =>
+          (props.categoryId > 0
+            ? product.categoryId === props.categoryId
+            : product) &&
+          (props.searchText.length > 0
+            ? product.name
+                .toLowerCase()
+                .startsWith(props.searchText.toLowerCase())
+            : product)
+      )
+      .map((product) => {
+        return {
+          id: product.id,
+          itemCode: product.itemCode,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          categoryId: product.categoryId,
+          addedQuantity: 0,
+          isButtonEnabled: false,
+        };
+      });
+
     setProducts(newProducts);
-  }, []);
+  }, [props.searchText, props.categoryId]);
 
   const handleAddCartButtonClick = (productId: number, value: number) => {
     updateProducts(productId, value);

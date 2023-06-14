@@ -49,6 +49,17 @@ export const ProductCart = () => {
     updateSubTotal();
   };
 
+  const handleRemoveClick = (productId: number) => {
+    contextProducts.splice(
+      contextProducts.findIndex(
+        (contextProduct) => contextProduct.id === productId
+      ),
+      1
+    );
+
+    updateSubTotal();
+  };
+
   const handleOrder = () => {
     setShowModalDialog(true);
   };
@@ -155,6 +166,7 @@ export const ProductCart = () => {
                         <a
                           href="#"
                           className="btn btn-light border text-danger icon-hover-danger"
+                          onClick={() => handleRemoveClick(product.id || 0)}
                         >
                           {" "}
                           Remove

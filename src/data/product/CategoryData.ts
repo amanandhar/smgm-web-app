@@ -22,62 +22,38 @@ const data = {
     },
     {
       id: 6,
-      name: "Kitchen Item",
-    },
-    {
-      id: 7,
-      name: "Marble Cleaner",
-    },
-    {
-      id: 8,
-      name: "Milk Sugar",
-    },
-    {
-      id: 9,
       name: "Noodles",
     },
     {
-      id: 10,
+      id: 7,
       name: "Nutrition",
     },
     {
-      id: 11,
+      id: 8,
       name: "Oil",
     },
     {
-      id: 12,
+      id: 9,
       name: "Tooth Brush",
     },
     {
-      id: 13,
+      id: 10,
       name: "Toilet Cleaner",
     },
     {
-      id: 14,
-      name: "Tea/Coffee",
-    },
-    {
-      id: 15,
-      name: "Toothpaste",
-    },
-    {
-      id: 16,
+      id: 11,
       name: "Rice",
     },
     {
-      id: 17,
-      name: "Sauce",
-    },
-    {
-      id: 18,
+      id: 12,
       name: "Spices",
     },
     {
-      id: 19,
+      id: 13,
       name: "Soap",
     },
     {
-      id: 20,
+      id: 14,
       name: "Namkeens",
     },
   ],

@@ -3,7 +3,11 @@ import "./CategorySlider.css";
 import data from "../../data/product/CategoryData";
 import { Category } from "../../models/Category.model";
 
-export const CategorySlider = () => {
+export interface ICategorySliderProps {
+  onClick: (value: number) => void;
+}
+
+export const CategorySlider = (props: ICategorySliderProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [showLeftArrow, setShowLeftArrow] = useState<boolean>(true);
@@ -54,6 +58,10 @@ export const CategorySlider = () => {
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategory(categoryId);
+
+    if (props.onClick) {
+      props.onClick(categoryId);
+    }
   };
 
   return (
@@ -74,6 +82,7 @@ export const CategorySlider = () => {
         >
           <div
             className={"ctg " + (selectedCategory === 0 ? "active-ctg" : "")}
+            onClick={() => handleCategoryClick(0)}
           >
             All
           </div>

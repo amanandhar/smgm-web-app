@@ -14,7 +14,7 @@ const data = {
       itemCode: "10.001001.02",
       price: 100,
       image: "",
-      categoryId: 20,
+      categoryId: 14,
     },
     {
       id: 3,
@@ -22,7 +22,7 @@ const data = {
       itemCode: "10.001001.03",
       price: 180,
       image: "",
-      categoryId: 20,
+      categoryId: 14,
     },
     {
       id: 4,
@@ -30,7 +30,7 @@ const data = {
       itemCode: "10.001001.04",
       price: 285,
       image: "",
-      categoryId: 20,
+      categoryId: 14,
     },
     {
       id: 5,
@@ -38,7 +38,7 @@ const data = {
       ItemCode: "10.001001.05",
       price: 10,
       image: "",
-      categoryId: 19,
+      categoryId: 13,
     },
     {
       id: 6,
@@ -46,7 +46,7 @@ const data = {
       itemCode: "10.001001.06",
       price: 1200,
       image: "",
-      categoryId: 10,
+      categoryId: 5,
     },
     {
       id: 7,
@@ -54,7 +54,7 @@ const data = {
       itemCode: "10.001001.07",
       price: 240,
       image: "",
-      categoryId: 10,
+      categoryId: 5,
     },
     {
       id: 8,
@@ -62,7 +62,7 @@ const data = {
       itemCode: "10.001001.08",
       price: 600,
       image: "",
-      categoryId: 10,
+      categoryId: 5,
     },
     {
       id: 9,
@@ -78,7 +78,7 @@ const data = {
       itemCode: "10.001001.10",
       price: 415,
       image: "",
-      categoryId: 13,
+      categoryId: 10,
     },
     {
       id: 11,
@@ -86,7 +86,7 @@ const data = {
       itemCode: "10.001001.11",
       price: 220,
       image: "",
-      categoryId: 13,
+      categoryId: 10,
     },
     {
       id: 12,
@@ -94,7 +94,7 @@ const data = {
       itemCode: "10.001001.12",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 13,
@@ -102,7 +102,7 @@ const data = {
       itemCode: "10.001001.13",
       price: 180,
       image: "",
-      categoryId: 10,
+      categoryId: 3,
     },
     {
       id: 14,
@@ -110,7 +110,7 @@ const data = {
       itemCode: "10.001001.14",
       price: 90,
       image: "",
-      categoryId: 9,
+      categoryId: 6,
     },
     {
       id: 15,
@@ -118,7 +118,7 @@ const data = {
       itemCode: "10.001001.15",
       price: 80,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 16,
@@ -126,7 +126,7 @@ const data = {
       itemCode: "10.001001.16",
       price: 3000,
       image: "",
-      categoryId: 16,
+      categoryId: 11,
     },
     {
       id: 17,
@@ -134,7 +134,7 @@ const data = {
       itemCode: "10.001001.17",
       price: 2925,
       image: "",
-      categoryId: 16,
+      categoryId: 11,
     },
     {
       id: 18,
@@ -142,7 +142,7 @@ const data = {
       itemCode: "10.001001.18",
       price: 365,
       image: "",
-      categoryId: 11,
+      categoryId: 8,
     },
     {
       id: 19,
@@ -150,7 +150,7 @@ const data = {
       itemCode: "10.001001.19",
       price: 185,
       image: "",
-      categoryId: 11,
+      categoryId: 8,
     },
     {
       id: 20,
@@ -158,7 +158,7 @@ const data = {
       itemCode: "10.001001.20",
       price: 130,
       image: "",
-      categoryId: 18,
+      categoryId: 8,
     },
     {
       id: 21,
@@ -166,7 +166,7 @@ const data = {
       itemCode: "10.001001.21",
       price: 65,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 22,
@@ -174,7 +174,7 @@ const data = {
       itemCode: "10.001001.22",
       price: 30,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 23,
@@ -182,7 +182,7 @@ const data = {
       itemCode: "10.001001.23",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 24,
@@ -190,7 +190,7 @@ const data = {
       itemCode: "10.001001.24",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 25,
@@ -198,7 +198,7 @@ const data = {
       itemCode: "10.001001.25",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 26,
@@ -206,7 +206,7 @@ const data = {
       itemCode: "10.001001.26",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 27,
@@ -214,7 +214,7 @@ const data = {
       itemCode: "10.001001.27",
       price: 65,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 28,
@@ -222,7 +222,7 @@ const data = {
       itemCode: "10.001001.28",
       price: 115,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 29,
@@ -230,7 +230,7 @@ const data = {
       itemCode: "10.001001.29",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 30,
@@ -238,7 +238,7 @@ const data = {
       itemCode: "10.001001.30",
       price: 100,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 31,
@@ -302,7 +302,7 @@ const data = {
       itemCode: "10.001001.38",
       price: 55,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 39,
@@ -310,7 +310,7 @@ const data = {
       itemCode: "10.001001.39",
       price: 55,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 40,
@@ -318,7 +318,7 @@ const data = {
       itemCode: "10.001001.40",
       price: 85,
       image: "",
-      categoryId: 16,
+      categoryId: 11,
     },
     {
       id: 41,
@@ -334,7 +334,7 @@ const data = {
       itemCode: "10.001001.42",
       price: 25,
       image: "",
-      categoryId: 10,
+      categoryId: 7,
     },
     {
       id: 43,
@@ -342,7 +342,7 @@ const data = {
       itemCode: "10.001001.43",
       price: 1800,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 44,
@@ -350,7 +350,7 @@ const data = {
       itemCode: "10.001001.44",
       price: 900,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 45,
@@ -358,7 +358,7 @@ const data = {
       itemCode: "10.001001.45",
       price: 360,
       image: "",
-      categoryId: 18,
+      categoryId: 12,
     },
     {
       id: 46,
@@ -374,7 +374,7 @@ const data = {
       itemCode: "10.001001.47",
       price: 25,
       image: "",
-      categoryId: 15,
+      categoryId: 9,
     },
     {
       id: 48,
@@ -382,7 +382,7 @@ const data = {
       itemCode: "10.001001.48",
       price: 75,
       image: "",
-      categoryId: 15,
+      categoryId: 9,
     },
     {
       id: 49,
@@ -390,7 +390,7 @@ const data = {
       itemCode: "10.001001.49",
       price: 135,
       image: "",
-      categoryId: 15,
+      categoryId: 9,
     },
     {
       id: 50,
@@ -398,8 +398,8 @@ const data = {
       itemCode: "10.001001.50",
       price: 45,
       image: "",
-      categoryId: 9,
-    }
+      categoryId: 6,
+    },
   ],
 };
 
