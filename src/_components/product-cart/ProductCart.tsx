@@ -5,7 +5,9 @@ import { Product } from "../../models/Product.model";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { UpdateQuantityButton } from "../../_components/buttons/update-quantity-button";
 import { ModalDialog } from "../../_components/modal-dialog";
+import axios from "axios";
 import "./ProductCart.css";
+import { Order } from "../../models/Order.model";
 
 export const ProductCart = () => {
   const history = useHistory();
@@ -61,6 +63,38 @@ export const ProductCart = () => {
   };
 
   const handleOrder = () => {
+    const items: {
+      itemId: number | undefined;
+      quantity: number | undefined;
+    }[] = [];
+    contextProducts.forEach((product) => {
+      const item = {
+        itemId: product.id,
+        quantity: product.addedQuantity,
+      };
+
+      items.push(item);
+    });
+    const data: Order = {
+      orderNumber: "1234",
+      name: name,
+      contactNumber: contactNumber,
+      address: address,
+      subTotal: subTotal,
+      discount: 0.0,
+      tax: 0.0,
+      deliveryCharge: deliveryCharge,
+      items: items,
+    };
+
+    // axios
+    //   .post("http://localhost:3003/api/orders", data)
+    //   .then((response) => {
+    //     console.log(response);
+    //     setShowModalDialog(true);
+    //   })
+    //   .catch((error) => console.log(error));
+
     setShowModalDialog(true);
   };
 

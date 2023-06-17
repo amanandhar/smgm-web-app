@@ -2,7 +2,9 @@
   "name": "smgm-web-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
+    "axios": "~1.4.0",
     "bootstrap": "~5.3.0",
     "react": "^17.0.2",
     "react-bootstrap": "~2.7.4",
