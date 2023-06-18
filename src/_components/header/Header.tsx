@@ -13,7 +13,7 @@ export const Header = () => {
       <div className="container px-4 px-lg-5">
         <label className="navbar-brand">
           <label onClick={handleTitleClick} className="smgm-title">
-            SMGM - Online Grocery Store
+            SMGM Online Grocery Store
           </label>
           <img
             width="30"

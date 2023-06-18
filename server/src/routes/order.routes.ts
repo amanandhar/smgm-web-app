@@ -27,7 +27,7 @@ orderRouter.get("/", (request: Request, response: Response) => {
     }
 
     connection.query(
-      "SELECT od.Id, od.OrderNumber, od.Name, od.ContactNumber, od.Address, od.SubTotal, od.Discount, od.Tax, od.DeliveryCharge, od.AddedDate, oi.ItemId, oi.Quantity FROM order_details od INNER JOIN order_items oi ON od.Id = oi.OrderId ORDER BY od.Id",
+      "SELECT od.Id, od.OrderNumber, od.Name, od.ContactNumber, od.Address, od.SubTotal, od.Discount, od.Tax, od.DeliveryCharge, od.AddedDate, od.Status, oi.ItemId, oi.Quantity FROM order_details od INNER JOIN order_items oi ON od.Id = oi.OrderId ORDER BY od.Id",
       function (error: any, rows: any) {
         if (error) {
           connection.destroy();
@@ -75,7 +75,8 @@ orderRouter.post("/", (request: Request, response: Response) => {
     }
 
     connection.query(
-      "INSERT INTO order_details (OrderNumber, Name, ContactNumber, Address, SubTotal, Discount, Tax, DeliveryCharge, AddedDate) VALUES (?, ? , ? , ?, ?, ?,?, ?, ?) ",
+      "INSERT INTO order_details (OrderNumber, Name, ContactNumber, Address, SubTotal, Discount, Tax, DeliveryCharge, AddedDate, Status) " +
+      "VALUES (?, ? , ? , ?, ?, ?,?, ?, ?, ?) ",
       [
         order.orderNumber,
         order.name,
@@ -86,6 +87,7 @@ orderRouter.post("/", (request: Request, response: Response) => {
         order.tax,
         order.deliveryCharge,
         currentDateTime,
+        "Pending"
       ],
       (error: any, result: any) => {
         if (error) {

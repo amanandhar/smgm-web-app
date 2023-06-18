@@ -75,8 +75,18 @@ export const ProductCart = () => {
 
       items.push(item);
     });
+
+    let newOrderNumber = "";
+    axios
+      .get("http://localhost:3034/api/orders/order-number")
+      .then((response) => {
+        console.log(response);
+        newOrderNumber = response.toString();
+      })
+      .catch((error) => console.log(error));
+
     const data: Order = {
-      orderNumber: "1234",
+      orderNumber: newOrderNumber,
       name: name,
       contactNumber: contactNumber,
       address: address,
@@ -87,15 +97,13 @@ export const ProductCart = () => {
       items: items,
     };
 
-    // axios
-    //   .post("http://localhost:3003/api/orders", data)
-    //   .then((response) => {
-    //     console.log(response);
-    //     setShowModalDialog(true);
-    //   })
-    //   .catch((error) => console.log(error));
-
-    setShowModalDialog(true);
+    axios
+      .post("http://localhost:3034/api/orders", data)
+      .then((response) => {
+        console.log(response);
+        setShowModalDialog(true);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleContinueShopping = () => {
@@ -104,6 +112,7 @@ export const ProductCart = () => {
 
   const handleModalDialogClose = () => {
     setShowModalDialog(false);
+    updateContextProducts([]);
     history.push("dashboard");
   };
 
