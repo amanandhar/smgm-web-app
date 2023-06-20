@@ -1,16 +1,14 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalTitle from "react-bootstrap/ModalTitle";
 
 export interface IModalDialogProps {
+  orderNumber: string;
   show: boolean;
   onClose: () => void;
 }
 
 export const ModalDialog = (props: IModalDialogProps) => {
+  const [orderNumber, setOrderNumber] = useState(props.orderNumber);
   const [isOpen, setIsOpen] = useState<boolean>(props.show ?? false);
 
   const hideModal = () => {
@@ -54,7 +52,7 @@ export const ModalDialog = (props: IModalDialogProps) => {
             Order Placed!
           </div>
           <div>
-            Your Order ID is <strong>ODLKXYV1686364144</strong>. Your order was
+            Your Order ID is <strong>{orderNumber}</strong>. Your order was
             placed successfully in SMGM Online Grocery Store
           </div>
           <div className="callOptions">

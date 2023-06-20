@@ -21,36 +21,33 @@ CREATE TABLE `item_category` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `order_number` (
-  `Id` bigint NOT NULL AUTO_INCREMENT,
-  `OrderNumber` bigint NOT NULL,
-  `OrderNumberString` varchar(45) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-CREATE TABLE `order_details` (
-  `Id` bigint NOT NULL AUTO_INCREMENT,
-  `OrderNumber` varchar(50) NOT NULL,
+CREATE TABLE `order_detail` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OrderNumber` bigint(20) NOT NULL,
+  `OrderNumberDisplay` varchar(50) NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `ContactNumber` bigint NOT NULL,
+  `ContactNumber` bigint(20) NOT NULL,
   `Address` varchar(500) NOT NULL,
   `SubTotal` decimal(18,2) NOT NULL DEFAULT '0.00',
   `Discount` decimal(18,2) NOT NULL DEFAULT '0.00',
   `Tax` decimal(18,2) NOT NULL DEFAULT '0.00',
   `DeliveryCharge` decimal(18,2) NOT NULL DEFAULT '0.00',
-  `Status` varchar(45) NOT NULL,
-  `AddedDate` datetime NOT NULL,
+  `IsSync` tinyint(4) NOT NULL DEFAULT '0',
+  `CreatedDate` datetime NOT NULL,
   `UpdatedBy` varchar(50) DEFAULT NULL,
   `UpdatedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `order_items` (
+
+CREATE TABLE `order_item` (
   `Id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `OrderId` bigint(20) NOT NULL,
+  `OrderNumberDisplay` varchar(50) NOT NULL,
   `ItemId` bigint(20) NOT NULL,
-  `Quantity` int(11) NOT NULL,
-  `AddedDate` datetime NOT NULL,
+  `Price` decimal(18,2) NOT NULL,
+  `Quantity` decimal(18,2) NOT NULL,
+  `CreatedDate` datetime NOT NULL,
   `UpdatedBy` varchar(50) DEFAULT NULL,
   `UpdatedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

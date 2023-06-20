@@ -1,5 +1,6 @@
 export class Order {
-  orderNumber: string | undefined;
+  orderNumber: number | undefined;
+  orderNumberDisplay: string | undefined;
   name: string | undefined;
   contactNumber: number | undefined;
   address: string | undefined;

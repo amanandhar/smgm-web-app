@@ -4,14 +4,43 @@ import { Item } from "../models/item.model";
 import { Order } from "../models/order.model";
 const orderRouter = Router();
 
-// const connection = mysql.createConnection({
-//   host: process.env.HOST,
-//   user: process.env.USER,
-//   password: process.env.PASSWORD,
-//   database: process.env.DATABASE,
-// });
-
 orderRouter.get("/", (request: Request, response: Response) => {
+  const pool = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    connectionLimit: Number(process.env.CONNECTION_LIMIT || 0),
+    multipleStatements: true,
+  });
+  pool.getConnection((error: any, connection: Connection) => {
+    if (error) {
+      connection.destroy();
+      response.sendStatus(500).send("Connection error");
+    }
+
+    connection.query(
+      "SELECT OrderNumberDisplay, Name, ContactNumber, Address, SubTotal, Discount, Tax, DeliveryCharge, CreatedDate " +
+        "FROM " +
+        process.env.TABLE_ORDER_DETAIL +
+        " " +
+        "WHERE 1 = 1 " +
+        "AND IsSync = " +
+        0,
+      function (error: any, rows: any) {
+        if (error) {
+          connection.destroy();
+          return response.status(500).send("Error while executing query");
+        }
+
+        response.status(200).json(rows);
+        connection.destroy();
+      }
+    );
+  });
+});
+
+orderRouter.get("/max-order-number", (request: Request, response: Response) => {
   const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
@@ -27,14 +56,17 @@ orderRouter.get("/", (request: Request, response: Response) => {
     }
 
     connection.query(
-      "SELECT od.Id, od.OrderNumber, od.Name, od.ContactNumber, od.Address, od.SubTotal, od.Discount, od.Tax, od.DeliveryCharge, od.AddedDate, od.Status, oi.ItemId, oi.Quantity FROM order_details od INNER JOIN order_items oi ON od.Id = oi.OrderId ORDER BY od.Id",
-      function (error: any, rows: any) {
+      "SELECT MAX(OrderNumber) AS max_order_number " +
+        process.env.TABLE_ORDER_DETAIL +
+        " ",
+      function (error: any, results: any) {
         if (error) {
           connection.destroy();
           return response.status(500).send("Error while executing query");
         }
 
-        response.status(200).json(rows);
+        const maxOrderNumber = results[0].max_order_number;
+        response.send({ maxOrderNumber: maxOrderNumber });
         connection.destroy();
       }
     );
@@ -53,6 +85,7 @@ orderRouter.post("/", (request: Request, response: Response) => {
 
   let order = new Order();
   order.orderNumber = request.body.orderNumber;
+  order.orderNumberDisplay = request.body.orderNumberDisplay;
   order.name = request.body.name;
   order.contactNumber = request.body.contactNumber;
   order.address = request.body.address;
@@ -60,7 +93,6 @@ orderRouter.post("/", (request: Request, response: Response) => {
   order.discount = request.body.discount;
   order.tax = request.body.tax;
   order.deliveryCharge = request.body.deliveryCharge;
-  //   order.items = request.body.items;
   const currentDateTime = new Date()
     .toISOString()
     .slice(0, 19)
@@ -75,10 +107,13 @@ orderRouter.post("/", (request: Request, response: Response) => {
     }
 
     connection.query(
-      "INSERT INTO order_details (OrderNumber, Name, ContactNumber, Address, SubTotal, Discount, Tax, DeliveryCharge, AddedDate, Status) " +
-      "VALUES (?, ? , ? , ?, ?, ?,?, ?, ?, ?) ",
+      "INSERT INTO " +
+        process.env.TABLE_ORDER_DETAIL +
+        " (OrderNumber, OrderNumberDisplay, Name, ContactNumber, Address, SubTotal, Discount, Tax, DeliveryCharge, CreatedDate) " +
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
       [
         order.orderNumber,
+        order.orderNumberDisplay,
         order.name,
         order.contactNumber,
         order.address,
@@ -87,7 +122,6 @@ orderRouter.post("/", (request: Request, response: Response) => {
         order.tax,
         order.deliveryCharge,
         currentDateTime,
-        "Pending"
       ],
       (error: any, result: any) => {
         if (error) {
@@ -98,11 +132,14 @@ orderRouter.post("/", (request: Request, response: Response) => {
         const orderDetailsId = result.insertId;
 
         connection.query(
-          "INSERT INTO order_items (OrderId, ItemId, Quantity, AddedDate) VALUES ?",
+          "INSERT INTO " +
+            process.env.TABLE_ORDER_DETAIL +
+            " (OrderId, ItemId, Price, Quantity, AddedDate) VALUES ?",
           [
             items?.map((item: Item) => [
               orderDetailsId,
               item.itemId,
+              item.price,
               item.quantity,
               currentDateTime,
             ]),
@@ -119,6 +156,45 @@ orderRouter.post("/", (request: Request, response: Response) => {
       }
     );
   });
+});
+
+orderRouter.put("/synchronize", (request: Request, response: Response) => {
+  const pool = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    connectionLimit: Number(process.env.CONNECTION_LIMIT || 0),
+    multipleStatements: true,
+  });
+
+  const orderNumbers = request.body;
+  if (orderNumbers.length === 0) {
+    response.sendStatus(200);
+  } else {
+    pool.getConnection((error: any, connection: Connection) => {
+      if (error) {
+        connection.destroy();
+        response.status(500).send("Connection error");
+      }
+
+      connection.query(
+        "UPDATE " +
+          process.env.TABLE_ORDER_DETAIL +
+          " SET IsSync = 1 WHERE OrderNumberDisplay IN (?)",
+        [orderNumbers],
+        (error: any, result: any) => {
+          if (error) {
+            connection.destroy();
+            return response.status(500).send("Error while executing query.");
+          }
+
+          response.sendStatus(200);
+          connection.destroy();
+        }
+      );
+    });
+  }
 });
 
 export default orderRouter;
