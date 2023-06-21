@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import {
+  IOrderNumberContext,
+  OrderNumberContext,
+} from "../../context/OrderNumberContext";
 import { Header } from "../../_components/header";
 import { ModalDialog } from "../../_components/modal-dialog";
 import { ProductCart } from "../../_components/product-cart";
 
 export const ProductCheckout = () => {
   const history = useHistory();
+  const orderNumberContext = useContext<IOrderNumberContext>(
+    OrderNumberContext
+  );
+
+  const [orderNumber, setOrderNumber] = useState<string>("");
   const [showModalDialog, setShowModalDialog] = useState<boolean>(false);
+
+  useEffect(() => {
+    const contextOrderNumber = orderNumberContext.contextOrderNumber;
+    setOrderNumber(contextOrderNumber);
+  }, [orderNumberContext.contextOrderNumber]);
 
   const handleModalDialogClose = () => {
     setShowModalDialog(false);
@@ -20,7 +34,11 @@ export const ProductCheckout = () => {
       </div>
       <ProductCart />
       {showModalDialog && (
-        <ModalDialog show={showModalDialog} onClose={handleModalDialogClose} />
+        <ModalDialog
+          orderNumber={orderNumber}
+          show={showModalDialog}
+          onClose={handleModalDialogClose}
+        />
       )}
     </>
   );
