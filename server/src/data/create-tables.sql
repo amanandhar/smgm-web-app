@@ -44,6 +44,8 @@ CREATE TABLE `order_item` (
   `Id` bigint(20) NOT NULL AUTO_INCREMENT,
   `OrderNumberDisplay` varchar(50) NOT NULL,
   `ItemId` bigint(20) NOT NULL,
+  `BatchNumber` int(11) NOT NULL DEFAULT '1',
+  `SubCode` varchar(10) DEFAULT NULL,
   `Price` decimal(18,2) NOT NULL,
   `Quantity` decimal(18,2) NOT NULL,
   `CreatedDate` datetime NOT NULL,
