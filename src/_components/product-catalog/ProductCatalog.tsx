@@ -3,49 +3,116 @@ import { Product } from "../../models/Product.model";
 import { AddCartButton } from "../buttons/add-cart-button";
 import { UpdateQuantityButton } from "../buttons/update-quantity-button";
 import { IProductContext, ProductContext } from "../../context/ProductContext";
-import data from "../../data/product/ProductData";
 import "./ProductCatalog.css";
+import { ProductPagination } from "../pagination";
+import axios from "axios";
 
 export interface IProductCatalogProps {
-  searchText: string;
+  searchBy: string;
   categoryId: number;
 }
 
 export const ProductCatalog = (props: IProductCatalogProps) => {
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [products, setProducts] = useState<Product[]>([]);
+  const [skip, setSkip] = useState<number>(0);
+
+  const itemsPerPage =
+    (process.env.REACT_APP_ITEMS_PER_APGE &&
+      parseInt(process.env.REACT_APP_ITEMS_PER_APGE)) ||
+    5;
 
   const { contextProducts, updateContextProducts } = useContext<
     IProductContext
   >(ProductContext);
 
   useEffect(() => {
-    const newProducts = data.products
-      .filter(
-        (product) =>
-          (props.categoryId > 0
-            ? product.categoryId === props.categoryId
-            : product) &&
-          (props.searchText.length > 0
-            ? product.name
-                .toLowerCase()
-                .startsWith(props.searchText.toLowerCase())
-            : product)
-      )
-      .map((product) => {
-        return {
-          id: product.id,
-          itemCode: product.itemCode,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          categoryId: product.categoryId,
-          addedQuantity: 0,
-          isButtonEnabled: false,
-        };
-      });
+    let url = `${process.env.REACT_APP_API_URL}/items?skip=${skip}&limit=${itemsPerPage}`;
+    if (props.categoryId > 0) {
+      url += `&category=${props.categoryId}`;
+    }
+    if (props.searchBy) {
+      url += `&searchBy=${props.searchBy}`;
+    }
+    axios.get(url).then((response) => {
+      const totalItems = response?.data?.totalItems;
+      if (totalItems && totalItems > 0) {
+        const divisible = Math.trunc(totalItems / itemsPerPage);
+        const remainder = totalItems % itemsPerPage;
+        if (remainder === 0) {
+          setTotalPages(divisible);
+        } else {
+          setTotalPages(divisible + 1);
+        }
 
-    setProducts(newProducts);
-  }, [props.searchText, props.categoryId]);
+        const newItems: Product[] =
+          response?.data?.rows.length > 0 &&
+          response?.data?.rows.map((item: any) => {
+            return {
+              id: item.Id,
+              itemId: item.ItemId,
+              code: item.Code,
+              batchNumber: item.BatchNumber,
+              subCode: item.SubCode,
+              category: item.Category,
+              name: item.Name,
+              customizedQuantity: item.CustomizedQuantity,
+              customizedUnit: item.CustomizedUnit,
+              price: item.Price,
+              imagePath: item.ImagePath,
+            };
+          });
+        setProducts(newItems);
+      } else {
+        setTotalPages(0);
+        setProducts([]);
+      }
+    });
+  }, [props.searchBy, props.categoryId]);
+
+  const getProducts = (skip: number) => {
+    let url = `${process.env.REACT_APP_API_URL}/items?skip=${skip}&limit=${itemsPerPage}`;
+    if (props.categoryId > 0) {
+      url += `&category=${props.categoryId}`;
+    }
+    if (props.searchBy) {
+      url += `&searchBy=${props.searchBy}`;
+    }
+    axios.get(url).then((response) => {
+      const totalItems = response?.data?.totalItems;
+      if (totalItems && totalItems > 0) {
+        const divisible = Math.trunc(totalItems / itemsPerPage);
+        const remainder = totalItems % itemsPerPage;
+        if (remainder === 0) {
+          setTotalPages(divisible);
+        } else {
+          setTotalPages(divisible + 1);
+        }
+
+        const newItems: Product[] =
+          response?.data?.rows.length > 0 &&
+          response?.data?.rows.map((item: any) => {
+            return {
+              id: item.Id,
+              itemId: item.ItemId,
+              code: item.Code,
+              batchNumber: item.BatchNumber,
+              subCode: item.SubCode,
+              category: item.Category,
+              name: item.Name,
+              customizedQuantity: item.CustomizedQuantity,
+              customizedUnit: item.CustomizedUnit,
+              price: item.Price,
+              imagePath: item.ImagePath,
+            };
+          });
+        setProducts(newItems);
+      } else {
+        setTotalPages(0);
+        setProducts([]);
+      }
+    });
+  };
 
   const handleAddCartButtonClick = (productId: number, value: number) => {
     updateProducts(productId, value);
@@ -56,6 +123,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
     value: number
   ) => {
     updateProducts(productId, value);
+  };
+
+  const handlePageChange = (page: number) => {
+    setSkip((page - 1) * itemsPerPage);
+    getProducts((page - 1) * itemsPerPage);
   };
 
   const updateProducts = (productId: number, value: number) => {
@@ -90,19 +162,39 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
           {products.map((product, index) => (
             <div key={index} className="col mb-5">
               <div className="card h-100">
-                <img
-                  className="card-img-top"
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/images/dummy/product-image-placeholder.jpg"
-                  }
-                  alt={product.name}
-                />
+                {product.imagePath ? (
+                  <img
+                    className="card-img-top"
+                    src={
+                      process.env.REACT_APP_STATIC_URL + "/" + product.imagePath
+                    }
+                    alt={product.name}
+                  />
+                ) : (
+                  <img
+                    className="card-img-top"
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/images/dummy/product-image-placeholder.jpg"
+                    }
+                    alt={product.name}
+                  />
+                )}
+
                 <div className="card-body p-4">
                   <div className="text-center">
                     <h5 className="fw-bolder">{product.name}</h5>
-                    <h6>{product.itemCode}</h6>
-                    Rs.{" " + product.price}
+                    <h6>
+                      {product.code}
+                      {product.batchNumber !== 0
+                        ? "." + product.batchNumber
+                        : ""}
+                      {product.subCode !== 0 ? "." + product.subCode : ""}
+                    </h6>
+                    <div>
+                      {product.customizedQuantity} {product.customizedUnit}
+                      {": Rs. " + product.price}
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -133,6 +225,16 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
             </div>
           ))}
         </div>
+      </div>
+      <div
+        className="container p-2"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <ProductPagination
+          currentPage={1}
+          totalPages={totalPages}
+          onPageChange={(page: number) => handlePageChange(page)}
+        />
       </div>
     </section>
   );

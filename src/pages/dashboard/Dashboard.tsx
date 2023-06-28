@@ -26,7 +26,7 @@ export const Dashboard = () => {
         <CategorySlider onClick={handleCategoryClick} />
         <CartSummary />
       </div>
-      <ProductCatalog searchText={searchText} categoryId={categoryId} />
+      <ProductCatalog searchBy={searchText} categoryId={categoryId} />
     </>
   );
 };

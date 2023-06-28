@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CategorySlider.css";
-import data from "../../data/product/CategoryData";
 import { Category } from "../../models/Category.model";
+import axios from "axios";
 
 export interface ICategorySliderProps {
   onClick: (value: number) => void;
@@ -14,13 +14,20 @@ export const CategorySlider = (props: ICategorySliderProps) => {
   const [showRightArrow, setShowRightArrow] = useState<boolean>(true);
 
   useEffect(() => {
-    const newCategories: Category[] = data.categories.map((category) => {
-      return {
-        id: category.id,
-        name: category.name,
-      };
-    });
-    setCategories(newCategories);
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/item-categories`)
+      .then((response: any) => {
+        const newCategories: Category[] = response?.data.map(
+          (category: any) => {
+            return {
+              id: category.Id,
+              name: category.Name,
+            };
+          }
+        );
+
+        setCategories(newCategories);
+      });
   }, []);
 
   // useEffect(() => {
@@ -58,7 +65,6 @@ export const CategorySlider = (props: ICategorySliderProps) => {
 
   const handleCategoryClick = (categoryId: number) => {
     setSelectedCategory(categoryId);
-
     if (props.onClick) {
       props.onClick(categoryId);
     }
@@ -92,7 +98,7 @@ export const CategorySlider = (props: ICategorySliderProps) => {
               className={
                 "ctg " + (selectedCategory === category.id ? "active-ctg" : "")
               }
-              onClick={() => handleCategoryClick(category.id || 0)}
+              onClick={() => handleCategoryClick(category.id || -1)}
             >
               {category.name}
             </div>

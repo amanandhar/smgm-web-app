@@ -183,19 +183,41 @@ export const ProductCart = () => {
                       <div className="col-lg-5">
                         <div className="me-lg-5">
                           <div className="d-flex">
-                            <img
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/images/dummy/product-image-placeholder.jpg"
-                              }
-                              className="border rounded me-3"
-                              style={{ width: "96px", height: "96px" }}
-                            />
+                            {product.imagePath ? (
+                              <img
+                                className="border rounded me-3"
+                                style={{ width: "96px", height: "96px" }}
+                                src={
+                                  process.env.REACT_APP_STATIC_URL +
+                                  "/" +
+                                  product.imagePath
+                                }
+                                alt={product.name}
+                              />
+                            ) : (
+                              <img
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/images/dummy/product-image-placeholder.jpg"
+                                }
+                                className="border rounded me-3"
+                                style={{ width: "96px", height: "96px" }}
+                                alt={product.name}
+                              />
+                            )}
                             <div className="">
                               <a href="#" className="nav-link">
                                 {product.name}
                               </a>
-                              <p className="text-muted">{product.itemCode}</p>
+                              <p className="text-muted">
+                                {product.code}
+                                {product.batchNumber !== 0
+                                  ? "." + product.batchNumber
+                                  : ""}
+                                {product.subCode !== 0
+                                  ? "." + product.subCode
+                                  : ""}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -212,7 +234,9 @@ export const ProductCart = () => {
                           </text>{" "}
                           <br />
                           <small className="text-muted text-nowrap">
-                            Rs {product.price}/per item{" "}
+                            {product.customizedQuantity}{" "}
+                            {product.customizedUnit}
+                            {": Rs. " + product.price}
                           </small>
                         </div>
                         <div className="" style={{ padding: "5px" }}>
