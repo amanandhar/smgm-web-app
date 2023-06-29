@@ -1,15 +1,17 @@
 import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import { IProductContext, ProductContext } from "../../context/ProductContext";
-import { Product } from "../../models/Product.model";
 import { AddCartButton } from "../../_components/buttons/add-cart-button";
 import { UpdateQuantityButton } from "../../_components/buttons/update-quantity-button";
 import { ModalDialog } from "../../_components/modal-dialog";
-import axios from "axios";
-import "./ProductCart.css";
-import { Order } from "../../models/Order.model";
 import { Spinner } from "../spinner";
-import { MaxOrderNumber } from "../../models/MaxOrderNumber";
+import { Product } from "../../models/Product.model";
+import { OrderDetail } from "../../models/OrderDetail.model";
+import { OrderItem } from "../../models/OrderItem.model";
+import { PaymentDetail } from "../../models/PaymentDetail.model";
+
+import "./ProductCart.css";
 
 export const ProductCart = () => {
   const history = useHistory();
@@ -19,7 +21,6 @@ export const ProductCart = () => {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [subTotal, setSubTotal] = useState<number>(0.0);
-  const [deliveryCharge, setDeliveryCharge] = useState<number>(0.0);
 
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<number>();
@@ -28,14 +29,26 @@ export const ProductCart = () => {
   const [enableOrderButton, setEnableOrderButton] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [showModalDialog, setShowModalDialog] = useState<boolean>(false);
+  const [paymentDetail, setPaymentDetail] = useState<PaymentDetail>({
+    discount: 0.0,
+    tax: 0.0,
+    deliveryCharge: 0.0,
+  });
 
   useEffect(() => {
     if (contextProducts.length === 0) {
       history.push("/");
     } else {
       updateSubTotal();
-      setDeliveryCharge(10.0);
     }
+
+    const paymentDetailFromApi: PaymentDetail = {
+      discount: 0.0,
+      tax: 0.0,
+      deliveryCharge: 0.0,
+    };
+
+    setPaymentDetail(paymentDetailFromApi);
   }, []);
 
   useEffect(() => {
@@ -80,39 +93,49 @@ export const ProductCart = () => {
   };
 
   const handleOrder = () => {
-    const items: {
-      itemId: number | undefined;
-      quantity: number | undefined;
-    }[] = [];
-    contextProducts.forEach((product) => {
-      const item = {
-        itemId: product.id,
-        quantity: product.addedQuantity,
-      };
-
-      items.push(item);
-    });
-
     let maxOrderNumber = 0;
     axios
-      .get("http://localhost:3034/api/orders/max-order-number")
+      .get(`${process.env.REACT_APP_API_URL}/orders/max-order-number`)
       .then((response: any) => {
-        maxOrderNumber = parseInt((response.maxOrderNumber || 0).toString());
-        const data: Order = {
-          orderNumber: maxOrderNumber + 1,
-          orderNumberDisplay: getOrderNumberDisplay(maxOrderNumber),
+        maxOrderNumber = parseInt(
+          (response?.data?.maxOrderNumber || 0).toString()
+        );
+        maxOrderNumber += 1;
+        const maxOrderNumberDisplay = getOrderNumberDisplay(maxOrderNumber);
+        const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+        const orderItems: OrderItem[] = [];
+        contextProducts.forEach((product) => {
+          const orderItem: OrderItem = {
+            orderNumberDisplay: maxOrderNumberDisplay,
+            itemId: product.itemId,
+            code: product.code,
+            batchNumber: product.batchNumber,
+            subCode: product.subCode,
+            price: product.price,
+            quantity: product.addedQuantity,
+            createdDate: now,
+          };
+
+          orderItems.push(orderItem);
+        });
+
+        const data: OrderDetail = {
+          orderNumber: maxOrderNumber,
+          orderNumberDisplay: maxOrderNumberDisplay,
           name: name,
           contactNumber: contactNumber,
           address: address,
           subTotal: subTotal,
-          discount: 0.0,
-          tax: 0.0,
-          deliveryCharge: deliveryCharge,
-          items: items,
+          discount: paymentDetail.discount,
+          tax: paymentDetail.tax,
+          deliveryCharge: paymentDetail.deliveryCharge,
+          createdDate: now,
+          items: orderItems,
         };
 
         axios
-          .post("http://localhost:3034/api/orders", data)
+          .post(`${process.env.REACT_APP_API_URL}/orders`, data)
           .then((response) => {
             console.log(response);
             setOrderNumberDisplay(data.orderNumberDisplay || "");
@@ -326,21 +349,27 @@ export const ProductCart = () => {
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Discount:</p>
-                    <p className="mb-2 text-success">Rs 0.00</p>
+                    <p className="mb-2 text-success">
+                      Rs {paymentDetail.discount}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">TAX:</p>
-                    <p className="mb-2">Rs 0.00</p>
+                    <p className="mb-2">Rs {paymentDetail.tax}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Delivery Charge:</p>
-                    <p className="mb-2">Rs {deliveryCharge}</p>
+                    <p className="mb-2">Rs {paymentDetail.deliveryCharge}</p>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
                     <p className="mb-2 fw-bold">
-                      Rs {subTotal + deliveryCharge}
+                      Rs{" "}
+                      {subTotal -
+                        (paymentDetail.discount || 0.0) +
+                        (paymentDetail.tax || 0.0) +
+                        (paymentDetail.deliveryCharge || 0.0)}
                     </p>
                   </div>
 
@@ -354,7 +383,7 @@ export const ProductCart = () => {
                       onClick={handleOrder}
                     >
                       {" "}
-                      Place Order <br />
+                      Place Order
                       <label style={{ fontSize: "12px" }}>
                         (Cash On Delivery)
                       </label>
@@ -365,7 +394,7 @@ export const ProductCart = () => {
                       onClick={handleContinueShopping}
                     >
                       {" "}
-                      Continue shopping{" "}
+                      Continue Shopping{" "}
                     </a>
                   </div>
                 </div>

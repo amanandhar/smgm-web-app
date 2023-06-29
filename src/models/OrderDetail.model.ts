@@ -1,4 +1,6 @@
-export class Order {
+import { OrderItem } from "./OrderItem.model";
+
+export class OrderDetail {
   orderNumber: number | undefined;
   orderNumberDisplay: string | undefined;
   name: string | undefined;
@@ -8,5 +10,6 @@ export class Order {
   discount: number | undefined;
   tax: number | undefined;
   deliveryCharge: number | undefined;
-  items: any[] | undefined;
+  createdDate: string | undefined;
+  items: OrderItem[] | undefined;
 }
