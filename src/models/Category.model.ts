@@ -1,4 +1,4 @@
 export class Category {
-  id: number | 0 | undefined;
+  counter: number | 0 | undefined;
   name: string | undefined;
 }

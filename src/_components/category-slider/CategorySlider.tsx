@@ -20,7 +20,7 @@ export const CategorySlider = (props: ICategorySliderProps) => {
         const newCategories: Category[] = response?.data.map(
           (category: any) => {
             return {
-              id: category.Id,
+              counter: category.Counter,
               name: category.Name,
             };
           }
@@ -96,9 +96,10 @@ export const CategorySlider = (props: ICategorySliderProps) => {
             <div
               key={index}
               className={
-                "ctg " + (selectedCategory === category.id ? "active-ctg" : "")
+                "ctg " +
+                (selectedCategory === category.counter ? "active-ctg" : "")
               }
-              onClick={() => handleCategoryClick(category.id || -1)}
+              onClick={() => handleCategoryClick(category.counter || -1)}
             >
               {category.name}
             </div>
