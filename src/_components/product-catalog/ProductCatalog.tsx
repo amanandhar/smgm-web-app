@@ -50,6 +50,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
           response?.data?.rows.map((item: any) => {
             return {
               id: item.Id,
+              key: item.Key,
               itemId: item.ItemId,
               code: item.Code,
               batchNumber: item.BatchNumber,
@@ -59,7 +60,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
               customizedQuantity: item.CustomizedQuantity,
               customizedUnit: item.CustomizedUnit,
               price: item.Price,
-              imagePath: item.ImagePath,
+              imageName: item.ImageName,
             };
           });
         setProducts(newItems);
@@ -94,6 +95,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
           response?.data?.rows.map((item: any) => {
             return {
               id: item.Id,
+              key: item.Key,
               itemId: item.ItemId,
               code: item.Code,
               batchNumber: item.BatchNumber,
@@ -103,7 +105,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
               customizedQuantity: item.CustomizedQuantity,
               customizedUnit: item.CustomizedUnit,
               price: item.Price,
-              imagePath: item.ImagePath,
+              imageName: item.ImageName,
             };
           });
         setProducts(newItems);
@@ -162,11 +164,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
           {products.map((product, index) => (
             <div key={index} className="col mb-5">
               <div className="card h-100">
-                {product.imagePath ? (
+                {product.imageName ? (
                   <img
                     className="card-img-top"
                     src={
-                      process.env.REACT_APP_STATIC_URL + "/" + product.imagePath
+                      process.env.REACT_APP_STATIC_URL + "/" + product.imageName
                     }
                     alt={product.name}
                   />

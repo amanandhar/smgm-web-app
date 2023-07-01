@@ -206,14 +206,14 @@ export const ProductCart = () => {
                       <div className="col-lg-5">
                         <div className="me-lg-5">
                           <div className="d-flex">
-                            {product.imagePath ? (
+                            {product.imageName ? (
                               <img
                                 className="border rounded me-3"
                                 style={{ width: "96px", height: "96px" }}
                                 src={
                                   process.env.REACT_APP_STATIC_URL +
                                   "/" +
-                                  product.imagePath
+                                  product.imageName
                                 }
                                 alt={product.name}
                               />
