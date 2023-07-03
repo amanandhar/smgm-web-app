@@ -60,6 +60,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
               customizedQuantity: item.CustomizedQuantity,
               customizedUnit: item.CustomizedUnit,
               price: item.Price,
+              stock: item.Stock,
               imageName: item.ImageName,
             };
           });
@@ -105,6 +106,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
               customizedQuantity: item.CustomizedQuantity,
               customizedUnit: item.CustomizedUnit,
               price: item.Price,
+              stock: item.Stock,
               imageName: item.ImageName,
             };
           });
@@ -116,15 +118,24 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
     });
   };
 
-  const handleAddCartButtonClick = (productId: number, value: number) => {
-    updateProducts(productId, value);
+  const handleAddCartButtonClick = (
+    productId: number,
+    value: number,
+    stock: number
+  ) => {
+    if (value <= stock) {
+      updateProducts(productId, value);
+    }
   };
 
   const handleChangeQuantityButtonClick = (
     productId: number,
-    value: number
+    value: number,
+    stock: number
   ) => {
-    updateProducts(productId, value);
+    if (value <= stock) {
+      updateProducts(productId, value);
+    }
   };
 
   const handlePageChange = (page: number) => {
@@ -200,6 +211,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                         {product.customizedQuantity} {product.customizedUnit}
                         {": Rs. " + product.price}
                       </div>
+                      <div style={{ color: "red" }}>
+                        {product.stock && product.stock < 10
+                          ? "Only " + product.stock + " available!"
+                          : ""}
+                      </div>
                     </div>
                   </div>
                   <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -210,7 +226,8 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                             onClick={(value) =>
                               handleChangeQuantityButtonClick(
                                 product.id || 0,
-                                value
+                                value,
+                                product.stock || 0
                               )
                             }
                           />
@@ -219,7 +236,11 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                         {!product.isButtonEnabled && (
                           <AddCartButton
                             onClick={() =>
-                              handleAddCartButtonClick(product.id || 0, 1)
+                              handleAddCartButtonClick(
+                                product.id || 0,
+                                1,
+                                product.stock || 0
+                              )
                             }
                           />
                         )}

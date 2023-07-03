@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Pagination } from "react-bootstrap";
+import { useState } from "react";
 
 export interface IProductPaginationProps {
   totalPages: number;

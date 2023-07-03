@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./CategorySlider.css";
-import { Category } from "../../models/Category.model";
+import { ItemCategory } from "../../models/ItemCategory.model";
 import axios from "axios";
 
 export interface ICategorySliderProps {
@@ -8,7 +8,7 @@ export interface ICategorySliderProps {
 }
 
 export const CategorySlider = (props: ICategorySliderProps) => {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<ItemCategory[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [showLeftArrow, setShowLeftArrow] = useState<boolean>(true);
   const [showRightArrow, setShowRightArrow] = useState<boolean>(true);
@@ -17,7 +17,7 @@ export const CategorySlider = (props: ICategorySliderProps) => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/item-categories`)
       .then((response: any) => {
-        const newCategories: Category[] = response?.data.map(
+        const newCategories: ItemCategory[] = response?.data.map(
           (category: any) => {
             return {
               counter: category.Counter,
