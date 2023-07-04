@@ -147,22 +147,35 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
     const index = products.findIndex((product) => product.id === productId);
     if (index >= 0) {
       let tempProducts = [...products];
-      tempProducts[index].isButtonEnabled = true;
+      if (value === 0) {
+        tempProducts[index].isButtonEnabled = false;
+      } else {
+        tempProducts[index].isButtonEnabled = true;
+      }
+
       setProducts(tempProducts);
 
       const contextIndex = contextProducts.findIndex(
         (product) => product.id === productId
       );
-      if (contextIndex >= 0) {
+
+      // If value of product is empty remove that product context product list
+      if (value === 0) {
         let tempContextProducts = [...contextProducts];
-        tempContextProducts[contextIndex].addedQuantity = value;
+        tempContextProducts.splice(contextIndex, 1);
         updateContextProducts(tempContextProducts);
       } else {
-        const product = products.find((product) => product.id === productId);
-        if (product) {
-          product.addedQuantity = value;
-          contextProducts.push(product);
-          updateContextProducts(contextProducts);
+        if (contextIndex >= 0) {
+          let tempContextProducts = [...contextProducts];
+          tempContextProducts[contextIndex].addedQuantity = value;
+          updateContextProducts(tempContextProducts);
+        } else {
+          const product = products.find((product) => product.id === productId);
+          if (product) {
+            product.addedQuantity = value;
+            contextProducts.push(product);
+            updateContextProducts(contextProducts);
+          }
         }
       }
     }
@@ -211,7 +224,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                         {product.customizedQuantity} {product.customizedUnit}
                         {": Rs. " + product.price}
                       </div>
-                      <div style={{ color: "red" }}>
+                      <div className="text-danger">
                         {product.stock && product.stock < 10
                           ? "Only " + product.stock + " available!"
                           : ""}
@@ -223,6 +236,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                       <div className="btn mt-auto">
                         {product.isButtonEnabled && (
                           <UpdateQuantityButton
+                            stock={product.stock}
                             onClick={(value) =>
                               handleChangeQuantityButtonClick(
                                 product.id || 0,

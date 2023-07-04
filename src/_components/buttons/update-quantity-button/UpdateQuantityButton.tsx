@@ -3,11 +3,13 @@ import "./UpdateQuantityButton.css";
 
 export interface IUpdateQuantityButtonProps {
   value?: number;
+  stock?: number;
   onClick: (value: number) => void;
 }
 
 export const UpdateQuantityButton = (props: IUpdateQuantityButtonProps) => {
   const [value, setValue] = useState<number>(props.value || 1);
+  const [stock, setStock] = useState<number>(props.stock || 0);
 
   const handleDecrementOnClick = () => {
     if (value !== 0) {
@@ -17,8 +19,10 @@ export const UpdateQuantityButton = (props: IUpdateQuantityButtonProps) => {
   };
 
   const handleIncrementOnClick = () => {
-    setValue((prev) => prev + 1);
-    props.onClick(value + 1);
+    if (value < stock) {
+      setValue((prev) => prev + 1);
+      props.onClick(value + 1);
+    }
   };
 
   return (

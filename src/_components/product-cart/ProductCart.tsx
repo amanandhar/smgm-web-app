@@ -19,9 +19,7 @@ export const ProductCart = () => {
     IProductContext
   >(ProductContext);
 
-  const [products, setProducts] = useState<Product[]>([]);
   const [subTotal, setSubTotal] = useState<number>(0.0);
-
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<number>();
   const [address, setAddress] = useState<string>("");
@@ -106,18 +104,20 @@ export const ProductCart = () => {
 
         const orderItems: OrderItem[] = [];
         contextProducts.forEach((product) => {
-          const orderItem: OrderItem = {
-            orderNumberDisplay: maxOrderNumberDisplay,
-            itemId: product.itemId,
-            code: product.code,
-            batchNumber: product.batchNumber,
-            subCode: product.subCode,
-            price: product.price,
-            quantity: product.addedQuantity,
-            createdDate: now,
-          };
+          if (product.addedQuantity && product.addedQuantity > 0) {
+            const orderItem: OrderItem = {
+              orderNumberDisplay: maxOrderNumberDisplay,
+              itemId: product.itemId,
+              code: product.code,
+              batchNumber: product.batchNumber,
+              subCode: product.subCode,
+              price: product.price,
+              quantity: product.addedQuantity,
+              createdDate: now,
+            };
 
-          orderItems.push(orderItem);
+            orderItems.push(orderItem);
+          }
         });
 
         const data: OrderDetail = {
@@ -232,13 +232,21 @@ export const ProductCart = () => {
                               <a href="#" className="nav-link">
                                 {product.name}
                               </a>
-                              <p className="text-muted">
+                              <p
+                                className="text-muted"
+                                style={{ marginBottom: "5px" }}
+                              >
                                 {product.code}
                                 {product.batchNumber !== 0
                                   ? "." + product.batchNumber
                                   : ""}
                                 {product.subCode !== 0
                                   ? "." + product.subCode
+                                  : ""}
+                              </p>
+                              <p className="text-danger">
+                                {product.stock && product.stock < 10
+                                  ? "Only " + product.stock + " available!"
                                   : ""}
                               </p>
                             </div>
@@ -264,6 +272,7 @@ export const ProductCart = () => {
                         </div>
                         <div className="" style={{ padding: "5px" }}>
                           <UpdateQuantityButton
+                            stock={product.stock}
                             value={product.addedQuantity || 0}
                             onClick={(value) =>
                               handleChangeQuantityButtonClick(
@@ -349,9 +358,7 @@ export const ProductCart = () => {
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Discount:</p>
-                    <p className="mb-2 text-success">
-                      Rs {paymentDetail.discount}
-                    </p>
+                    <p className="mb-2">Rs {paymentDetail.discount}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">TAX:</p>
@@ -384,9 +391,9 @@ export const ProductCart = () => {
                     >
                       {" "}
                       Place Order
-                      <label style={{ fontSize: "12px" }}>
+                      <p style={{ fontSize: "12px", marginBottom: "2px" }}>
                         (Cash On Delivery)
-                      </label>
+                      </p>
                     </a>
                     <a
                       href="#"
