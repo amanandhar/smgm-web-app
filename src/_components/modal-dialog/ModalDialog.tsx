@@ -49,7 +49,7 @@ export const ModalDialog = (props: IModalDialogProps) => {
             style={{ color: "#08BD7C", margin: "20px 0 12px" }}
             className="fs-18"
           >
-            Order Placed!
+            Order Placed Successfully!
           </div>
           <div>
             Your Order ID is <strong>{orderNumber}</strong>. Your order was
