@@ -20,6 +20,7 @@ export const ProductCart = () => {
   >(ProductContext);
 
   const [subTotal, setSubTotal] = useState<number>(0.0);
+  const [memberId, setMemberId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<number>();
   const [address, setAddress] = useState<string>("");
@@ -123,6 +124,7 @@ export const ProductCart = () => {
         const data: OrderDetail = {
           orderNumber: maxOrderNumber,
           orderNumberDisplay: maxOrderNumberDisplay,
+          memberId: memberId,
           name: name,
           contactNumber: contactNumber,
           address: address,
@@ -137,7 +139,6 @@ export const ProductCart = () => {
         axios
           .post(`${process.env.REACT_APP_API_URL}/orders`, data)
           .then((response) => {
-            console.log(response);
             setOrderNumberDisplay(data.orderNumberDisplay || "");
             setShowModalDialog(true);
           })
@@ -323,6 +324,15 @@ export const ProductCart = () => {
                           type="text"
                           className="form-control border"
                           name=""
+                          placeholder="Member Id*"
+                          onChange={(e: any) => setMemberId(e.target.value)}
+                        />
+                      </div>
+                      <div className="input-group" style={{ padding: "2px" }}>
+                        <input
+                          type="text"
+                          className="form-control border"
+                          name=""
                           placeholder="Name*"
                           onChange={(e: any) => setName(e.target.value)}
                         />
@@ -357,14 +367,6 @@ export const ProductCart = () => {
                     <p className="mb-2">Rs {subTotal}</p>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <p className="mb-2">Discount:</p>
-                    <p className="mb-2">Rs {paymentDetail.discount}</p>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <p className="mb-2">TAX:</p>
-                    <p className="mb-2">Rs {paymentDetail.tax}</p>
-                  </div>
-                  <div className="d-flex justify-content-between">
                     <p className="mb-2">Delivery Charge:</p>
                     <p className="mb-2">Rs {paymentDetail.deliveryCharge}</p>
                   </div>
@@ -372,11 +374,7 @@ export const ProductCart = () => {
                   <div className="d-flex justify-content-between">
                     <p className="mb-2">Total price:</p>
                     <p className="mb-2 fw-bold">
-                      Rs{" "}
-                      {subTotal -
-                        (paymentDetail.discount || 0.0) +
-                        (paymentDetail.tax || 0.0) +
-                        (paymentDetail.deliveryCharge || 0.0)}
+                      Rs {subTotal + (paymentDetail.deliveryCharge || 0.0)}
                     </p>
                   </div>
 

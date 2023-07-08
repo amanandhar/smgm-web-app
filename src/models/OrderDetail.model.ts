@@ -3,6 +3,7 @@ import { OrderItem } from "./OrderItem.model";
 export class OrderDetail {
   orderNumber: number | undefined;
   orderNumberDisplay: string | undefined;
+  memberId: string | undefined;
   name: string | undefined;
   contactNumber: number | undefined;
   address: string | undefined;
