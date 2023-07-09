@@ -4,7 +4,6 @@ import {
   IOrderNumberContext,
   OrderNumberContext,
 } from "../../context/OrderNumberContext";
-import { Header } from "../../_components/header";
 import { ModalDialog } from "../../_components/modal-dialog";
 import { ProductCart } from "../../_components/product-cart";
 
@@ -29,9 +28,6 @@ export const ProductCheckout = () => {
 
   return (
     <>
-      <div className="sticky-container">
-        <Header />
-      </div>
       <ProductCart />
       {showModalDialog && (
         <ModalDialog

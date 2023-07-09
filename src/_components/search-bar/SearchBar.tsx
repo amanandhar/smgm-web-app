@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-import { useDebounce } from "../../utility/useDebounce";
 import "./SearchBar.css";
 
 export interface ISearchBarProps {
@@ -15,8 +13,8 @@ export const SearchBar = (props: ISearchBarProps) => {
 
   return (
     <div className="main">
-      <div className="form-group has-search">
-        <span className="fa fa-search form-control-feedback"></span>
+      <div className="form-group has-search box">
+        <i className="fa fa-search form-control-feedback"></i>
         <input
           type="text"
           className="form-control"

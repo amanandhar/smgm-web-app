@@ -1,12 +1,9 @@
-import { CartSummary } from "../../_components/cart-summary";
-import { CategorySlider } from "../../_components/category-slider";
-import { Header } from "../../_components/header";
-import { SearchBar } from "../../_components/search-bar";
-import { ProductCatalog } from "../../_components/product-catalog";
-import "./Dashboard.css";
 import { useState } from "react";
+import { CartSummary } from "../../_components/cart-summary";
+import { ProductCatalog } from "../../_components/product-catalog";
+import "./Home.css";
 
-export const Dashboard = () => {
+export const Home = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [categoryId, setCategoryId] = useState<number>(0);
 
@@ -20,10 +17,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="sticky-container">
-        <Header />
-        <SearchBar onChange={handleSearchBarChange} />
-        <CategorySlider onClick={handleCategoryClick} />
+      <div>
         <CartSummary />
       </div>
       <ProductCatalog searchBy={searchText} categoryId={categoryId} />

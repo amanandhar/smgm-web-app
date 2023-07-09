@@ -1,51 +1,122 @@
 import { useHistory } from "react-router-dom";
+import { CategoryDropdown } from "../category-dropdown";
+import { SearchBar } from "../search-bar";
 import "./Header.css";
 
-export const Header = () => {
+export interface IHeaderProps {
+  onDropdownChange?: (value: number) => void;
+  onSearchbarChange?: (value: string) => void;
+}
+
+export const Header = (props: IHeaderProps) => {
   const history = useHistory();
 
-  const handleTitleClick = () => {
-    history.push("/");
+  const handleDropdownChange = (value: number) => {
+    if (props.onDropdownChange) {
+      props.onDropdownChange(value);
+    }
+  };
+
+  const handleSearchbarChange = (value: string) => {
+    if (props.onSearchbarChange) {
+      props.onSearchbarChange(value);
+    }
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container px-4 px-lg-5">
-        <label className="navbar-brand">
-          <label onClick={handleTitleClick} className="smgm-title">
-            SMGM Online Grocery Store
-          </label>
-          <img
-            width="30"
-            height="30"
-            src={process.env.PUBLIC_URL + "/images/company/company-logo.jpg"}
-            alt="SMGM"
-            style={{ padding: "2px" }}
-          />
-        </label>
-        <div>
-          <label style={{ fontSize: "12px" }}>
+    <div className="sticky-container">
+      <header className="smgm-heading1">
+        <div className="smgm-navbar">
+          <div className="title truncate" onClick={() => history.push("/")}>
+            <label className="smgm-company-brand">SMGM </label>
+            <label className="smgm-company-name">Online Grocery Store</label>
             <img
-              src={process.env.PUBLIC_URL + "/images/icons/mail.svg"}
-              alt=""
-              className=""
+              className="smgm-company-logo"
+              width="30"
+              height="30"
+              src={process.env.PUBLIC_URL + "/images/company/company-logo.jpg"}
+              alt="SMGM"
             />
-            samyuktamanab.grocery@gmail.com, {"   "}
-            <img
-              src={process.env.PUBLIC_URL + "/images/icons/phone.svg"}
-              alt=""
-              className="mr-1 "
-            />
-            01-4351920, {"   "}
-            <img
-              src={process.env.PUBLIC_URL + "/images/icons/whatsapp.svg"}
-              alt=""
-              className="mr-1"
-            />
-            9841862943
-          </label>
+          </div>
+          <div className="smgm-category-element">
+            <div className="smgm-category-dropdown">
+              <CategoryDropdown
+                onChange={(value) => handleDropdownChange(value)}
+              />
+            </div>
+            <div className="smgm-category-searchbar">
+              <SearchBar onChange={(value) => handleSearchbarChange(value)} />
+            </div>
+          </div>
+          <div className="title">
+            <label>Call: 01-4351920</label>
+          </div>
         </div>
-      </div>
-    </nav>
+      </header>
+      <header className="smgm-heading2">
+        <div className="smgm-navbar">
+          <div className="title truncate">
+            <label>We have all kinds of grocery items which you needed.</label>
+          </div>
+          <div className="title truncate">
+            <label>
+              Free delivery! Fast delivery!! To all over Kathmandu!!!
+            </label>
+          </div>
+
+          <div>
+            <ul className="links">
+              <li>
+                <a href="home" onClick={() => history.push("/home")}>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="about-us" onClick={() => history.push("/about-us")}>
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="membership"
+                  onClick={() => history.push("/membership")}
+                >
+                  Membership
+                </a>
+              </li>
+              <li>
+                <a href="service" onClick={() => history.push("/service")}>
+                  Service
+                </a>
+              </li>
+              <li>
+                <a href="contact" onClick={() => history.push("/contact")}>
+                  Contact
+                </a>
+              </li>
+            </ul>
+            <div className="toggle-btn">
+              <i className="fa-solid fa-bars"></i>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="dropdown-menu open">
+            <li>
+              <a href="home">Home</a>
+            </li>
+            <li>
+              <a href="about">About</a>
+            </li>
+            <li>
+              <a href="services">Services</a>
+            </li>
+            <li>
+              <a href="contact">Contact</a>
+            </li>
+          </div>
+        </div>
+      </header>
+    </div>
   );
 };
