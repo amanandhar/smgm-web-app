@@ -9,12 +9,13 @@
 
 /* Company */
 .smgm-company-brand {
-  font-size: xx-large;
+  font-size: 2rem;
 }
 
 .smgm-company-name {
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 15px;
+  font-size: 1.3rem;
 }
 
 .smgm-company-logo {
@@ -37,8 +38,12 @@
 
 /* Search Bar */
 .smgm-category-searchbar {
-  width: 80%;
+  width: 100%;
   padding: 1px;
+}
+
+.smgm-company-contact {
+  font-size: 1.3rem;
 }
 
 /* Header */
@@ -55,12 +60,20 @@
 .smgm-navbar {
   position: relative;
   padding: 0 2rem;
+
   width: 100%;
-  height: 60px;
   /* max-width: 1200px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.smgm-navbar .header-title.truncate {
+  /* width: 500px; */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
 }
 
 .smgm-navbar .title.truncate {
@@ -87,10 +100,13 @@
   font-size: 1rem;
 }
 
+.smgm-navbar .header-title label {
+  color: #fff;
+  font-weight: bold;
+}
+
 .smgm-navbar .title label {
   color: #fff;
-  font-size: 1.2 rem;
-  font-weight: bold;
 }
 
 .smgm-navbar .links {

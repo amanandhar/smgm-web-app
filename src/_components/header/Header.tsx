@@ -26,8 +26,8 @@ export const Header = (props: IHeaderProps) => {
   return (
     <div className="sticky-container">
       <header className="smgm-heading1">
-        <div className="smgm-navbar">
-          <div className="title truncate" onClick={() => history.push("/")}>
+        <div className="smgm-navbar" style={{height: "75px"}}>
+          <div className="header-title truncate" onClick={() => history.push("/")}>
             <label className="smgm-company-brand">SMGM </label>
             <label className="smgm-company-name">Online Grocery Store</label>
             <img
@@ -48,13 +48,13 @@ export const Header = (props: IHeaderProps) => {
               <SearchBar onChange={(value) => handleSearchbarChange(value)} />
             </div>
           </div>
-          <div className="title">
-            <label>Call: 01-4351920</label>
+          <div className="header-title truncate">
+            <label className="smgm-company-contact">Call : 01-4351920</label>
           </div>
         </div>
       </header>
       <header className="smgm-heading2">
-        <div className="smgm-navbar">
+        <div className="smgm-navbar" style={{height: "45px"}}>
           <div className="title truncate">
             <label>We have all kinds of grocery items which you needed.</label>
           </div>
