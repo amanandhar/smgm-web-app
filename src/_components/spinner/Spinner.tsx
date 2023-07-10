@@ -1,10 +1,9 @@
+import "./Spinner.css";
+
 export const Spinner = () => {
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
-      <div className="spinner-border" role="status"></div>
+    <div className="smgm-spinner-overlay">
+      <div className="smgm-spinner"></div>
     </div>
   );
 };

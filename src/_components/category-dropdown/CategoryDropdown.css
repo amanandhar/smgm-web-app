@@ -3,3 +3,9 @@
   border-radius: 6px;
   margin: 1px auto;
 }
+
+.dropdown-menu {
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 200px;
+}
