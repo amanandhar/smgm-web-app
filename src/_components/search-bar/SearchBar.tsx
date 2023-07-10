@@ -18,7 +18,7 @@ export const SearchBar = (props: ISearchBarProps) => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search item"
+          placeholder="Search everything at SMGM Online Store"
           onChange={(e: any) => handleChange(e.target.value)}
         />
       </div>

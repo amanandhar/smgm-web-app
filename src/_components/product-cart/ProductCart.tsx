@@ -299,7 +299,7 @@ export const ProductCart = () => {
 
               <div className="border-top pt-4 mx-4 mb-4">
                 <p>
-                  <i className="fas fa-truck text-muted fa-lg"></i> Items will
+                  <i className="fas fa-truck text-muted fa-lg"></i> Order will
                   be delivered within 2-3 business days!
                 </p>
                 <p className="text-muted"></p>
@@ -346,6 +346,7 @@ export const ProductCart = () => {
                       <textarea
                         className="form-control border"
                         name=""
+                        rows={1}
                         placeholder="Address*"
                         onChange={(e: any) => setAddress(e.target.value)}
                       />
@@ -364,15 +365,15 @@ export const ProductCart = () => {
                   <p className="mb-2">Delivery Charge:</p>
                   <p className="mb-2">Rs {paymentDetail.deliveryCharge}</p>
                 </div>
-                <hr />
+                <hr style={{margin: "0.5rem 0"}}/>
                 <div className="d-flex justify-content-between">
-                  <p className="mb-2">Total price:</p>
+                  <p className="mb-2">Total Price:</p>
                   <p className="mb-2 fw-bold">
                     Rs {subTotal + (paymentDetail.deliveryCharge || 0.0)}
                   </p>
                 </div>
 
-                <div className="mt-3">
+                <div className="">
                   <a
                     href="#"
                     className={
@@ -383,17 +384,17 @@ export const ProductCart = () => {
                   >
                     {" "}
                     Place Order
-                    <p style={{ fontSize: "12px", marginBottom: "2px" }}>
+                    <p style={{ fontSize: "12px", marginBottom: "0px" }}>
                       (Cash On Delivery)
                     </p>
                   </a>
                   <a
                     href="#"
-                    className="btn btn-secondary w-100 border mt-2"
+                    className="btn btn-secondary w-100 border"
                     onClick={handleContinueShopping}
                   >
                     {" "}
-                    Continue Shopping{" "}
+                    Back To Shopping{" "}
                   </a>
                 </div>
               </div>

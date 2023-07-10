@@ -14,8 +14,8 @@
 
 .smgm-company-name {
   padding-left: 5px;
-  padding-right: 15px;
-  font-size: 1.3rem;
+  padding-right: 5px;
+  font-size: 1.2rem;
 }
 
 .smgm-company-logo {
@@ -38,17 +38,17 @@
 
 /* Search Bar */
 .smgm-category-searchbar {
-  width: 100%;
+  width: 70%;
   padding: 1px;
 }
 
 .smgm-company-contact {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 /* Header */
 .smgm-heading1 {
-  background-color: dodgerblue;
+  background-color: rgb(7, 131, 255);
   border-bottom: 1px solid white;
 }
 
