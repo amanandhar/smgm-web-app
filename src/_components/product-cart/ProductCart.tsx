@@ -18,6 +18,7 @@ export const ProductCart = () => {
 
   const [subTotal, setSubTotal] = useState<number>(0.0);
   const [memberId, setMemberId] = useState<string>("");
+  const [isMemberIdInvalid, setIsMemberIdInvalid] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<number>();
   const [address, setAddress] = useState<string>("");
@@ -88,69 +89,75 @@ export const ProductCart = () => {
   };
 
   const handleOrder = () => {
-    let maxOrderNumber = 0;
-    setIsLoading(true);
-    try {
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/orders/max-order-number`)
-        .then((response: any) => {
-          maxOrderNumber = parseInt(
-            (response?.data?.maxOrderNumber || 0).toString()
-          );
-          maxOrderNumber += 1;
-          const maxOrderNumberDisplay = getOrderNumberDisplay(maxOrderNumber);
-          const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+    var regex = /^[mn]\d{4}$/i;
+    if (memberId.length > 0 && !regex.test(memberId)) {
+      setIsMemberIdInvalid(true);
+    } else {
+      setIsMemberIdInvalid(false);
+      let maxOrderNumber = 0;
+      setIsLoading(true);
+      try {
+        axios
+          .get(`${process.env.REACT_APP_API_URL}/orders/max-order-number`)
+          .then((response: any) => {
+            maxOrderNumber = parseInt(
+              (response?.data?.maxOrderNumber || 0).toString()
+            );
+            maxOrderNumber += 1;
+            const maxOrderNumberDisplay = getOrderNumberDisplay(maxOrderNumber);
+            const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-          const orderItems: OrderItem[] = [];
-          contextProducts.forEach((product) => {
-            if (product.addedQuantity && product.addedQuantity > 0) {
-              const orderItem: OrderItem = {
-                orderNumberDisplay: maxOrderNumberDisplay,
-                itemId: product.itemId,
-                code: product.code,
-                batchNumber: product.batchNumber,
-                subCode: product.subCode,
-                price: product.price,
-                quantity: product.addedQuantity,
-                createdDate: now,
-              };
+            const orderItems: OrderItem[] = [];
+            contextProducts.forEach((product) => {
+              if (product.addedQuantity && product.addedQuantity > 0) {
+                const orderItem: OrderItem = {
+                  orderNumberDisplay: maxOrderNumberDisplay,
+                  itemId: product.itemId,
+                  code: product.code,
+                  batchNumber: product.batchNumber,
+                  subCode: product.subCode,
+                  price: product.price,
+                  quantity: product.addedQuantity,
+                  createdDate: now,
+                };
 
-              orderItems.push(orderItem);
-            }
-          });
+                orderItems.push(orderItem);
+              }
+            });
 
-          const data: OrderDetail = {
-            orderNumber: maxOrderNumber,
-            orderNumberDisplay: maxOrderNumberDisplay,
-            memberId: memberId,
-            name: name,
-            contactNumber: contactNumber,
-            address: address,
-            subTotal: subTotal,
-            discount: paymentDetail.discount,
-            tax: paymentDetail.tax,
-            deliveryCharge: paymentDetail.deliveryCharge,
-            createdDate: now,
-            items: orderItems,
-          };
+            const data: OrderDetail = {
+              orderNumber: maxOrderNumber,
+              orderNumberDisplay: maxOrderNumberDisplay,
+              memberId: memberId,
+              name: name,
+              contactNumber: contactNumber,
+              address: address,
+              subTotal: subTotal,
+              discount: paymentDetail.discount,
+              tax: paymentDetail.tax,
+              deliveryCharge: paymentDetail.deliveryCharge,
+              createdDate: now,
+              items: orderItems,
+            };
 
-          axios
-            .post(`${process.env.REACT_APP_API_URL}/orders`, data)
-            .then((response) => {
-              setOrderNumberDisplay(data.orderNumberDisplay || "");
-              setShowModalDialog(true);
-            })
-            .catch((error) => console.log(error));
-        })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      // Handle error
-    } finally {
-      setIsLoading(false);
+            axios
+              .post(`${process.env.REACT_APP_API_URL}/orders`, data)
+              .then((response) => {
+                setOrderNumberDisplay(data.orderNumberDisplay || "");
+                setShowModalDialog(true);
+              })
+              .catch((error) => console.log(error));
+          })
+          .catch((error) => console.log(error));
+      } catch (error) {
+        // Handle error
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
-  const handleContinueShopping = () => {
+  const handleBackToShopping = () => {
     history.push("/");
   };
 
@@ -318,12 +325,20 @@ export const ProductCart = () => {
                     <div className="input-group" style={{ padding: "2px" }}>
                       <input
                         type="text"
-                        className="form-control border"
+                        className={`form-control border ${
+                          isMemberIdInvalid ? "is-invalid" : ""
+                        }`}
                         name=""
                         placeholder="Member Id*"
                         onChange={(e: any) => setMemberId(e.target.value)}
                       />
+                      {isMemberIdInvalid && (
+                        <div className="invalid-feedback">
+                          Should be in (M0001) format.
+                        </div>
+                      )}
                     </div>
+
                     <div className="input-group" style={{ padding: "2px" }}>
                       <input
                         type="text"
@@ -365,7 +380,7 @@ export const ProductCart = () => {
                   <p className="mb-2">Delivery Charge:</p>
                   <p className="mb-2">Rs {paymentDetail.deliveryCharge}</p>
                 </div>
-                <hr style={{margin: "0.5rem 0"}}/>
+                <hr style={{ margin: "0.5rem 0" }} />
                 <div className="d-flex justify-content-between">
                   <p className="mb-2">Total Price:</p>
                   <p className="mb-2 fw-bold">
@@ -391,7 +406,7 @@ export const ProductCart = () => {
                   <a
                     href="#"
                     className="btn btn-secondary w-100 border"
-                    onClick={handleContinueShopping}
+                    onClick={handleBackToShopping}
                   >
                     {" "}
                     Back To Shopping{" "}

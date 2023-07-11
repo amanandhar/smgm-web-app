@@ -44,8 +44,6 @@ export const Header = () => {
               <label className="smgm-company-name">Online Grocery Store</label>
               <img
                 className="smgm-company-logo"
-                width="30"
-                height="30"
                 src={
                   process.env.PUBLIC_URL + "/images/company/company-logo.jpg"
                 }

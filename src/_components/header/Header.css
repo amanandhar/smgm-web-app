@@ -21,6 +21,8 @@
 .smgm-company-logo {
   vertical-align: baseline;
   border-radius: 6px;
+  height: 30px;
+  width: 30px;
 }
 
 /* Category Elements */
