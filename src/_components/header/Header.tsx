@@ -131,7 +131,10 @@ export const Header = () => {
                 <a href="about-us">About</a>
               </li>
               <li>
-                <a href="services">Services</a>
+                <a href="membership">Membership</a>
+              </li>
+              <li>
+                <a href="service">Service</a>
               </li>
               <li>
                 <a href="contact">Contact</a>

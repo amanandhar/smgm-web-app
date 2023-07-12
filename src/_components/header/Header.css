@@ -184,7 +184,7 @@
   .smgm-dropdown-menu.open {
     left: 2rem;
     width: unset;
-    height: 125px;
+    height: 155px;
     background-color: darkblue;
     border: 1px solid white;
     display: flex;

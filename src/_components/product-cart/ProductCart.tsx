@@ -309,6 +309,9 @@ export const ProductCart = () => {
                   <i className="fas fa-truck text-muted fa-lg"></i> Order will
                   be delivered within 2-3 business days!
                 </p>
+                <p>
+                  <i className="fas fa-info-circle text-muted fa-lg"></i> Purchased items can be returned within 7 days!!
+                </p>
                 <p className="text-muted"></p>
               </div>
             </div>
@@ -400,12 +403,13 @@ export const ProductCart = () => {
                     {" "}
                     Place Order
                     <p style={{ fontSize: "12px", marginBottom: "0px" }}>
-                      (Cash On Delivery)
+                      COD (Cash On Delivery)
                     </p>
                   </a>
                   <a
                     href="#"
                     className="btn btn-secondary w-100 border"
+                    style={{backgroundColor: "darkblue"}}
                     onClick={handleBackToShopping}
                   >
                     {" "}
