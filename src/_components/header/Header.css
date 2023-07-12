@@ -40,10 +40,11 @@
 
 /* Search Bar */
 .smgm-category-searchbar {
-  width: 70%;
+  width: 60%;
   padding: 1px;
 }
 
+/* Contact Number */
 .smgm-company-contact {
   font-size: 1.2rem;
 }
@@ -55,23 +56,20 @@
 }
 
 .smgm-heading2 {
-  background-color: #4171da;
+  background-color: darkblue;
 }
 
 /* Navbar */
 .smgm-navbar {
   position: relative;
   padding: 0 2rem;
-
   width: 100%;
-  /* max-width: 1200px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .smgm-navbar .header-title.truncate {
-  /* width: 500px; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -79,7 +77,6 @@
 }
 
 .smgm-navbar .title.truncate {
-  /* width: 500px; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -146,12 +143,6 @@
   transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.smgm-dropdown-menu.open {
-  height: 180px;
-  background-color: #4171da;
-  border: 1px solid white;
-}
-
 .smgm-dropdown-menu li {
   padding: 0.7rem;
   display: flex;
@@ -169,14 +160,66 @@
     display: block;
   }
 
-  .smgm-dropdown-menu {
-    display: block;
+  .smgm-dropdown-menu.open {
+    left: 2rem;
+    width: unset;
+    height: 125px;
+    background-color: darkblue;
+    border: 1px solid white;
+    display: flex;
+    justify-content: start;
+  }
+
+  .smgm-dropdown-menu.open li {
+    padding: 0.2rem;
+  }
+
+  .smgm-dropdown-menu.open a {
+    color: white;
+    font-size: bold;
   }
 }
 
 @media (max-width: 576px) {
-  .smgm-dropdown-menu {
+  .smgm-dropdown-menu.open {
     left: 2rem;
     width: unset;
+    height: 125px;
+    background-color: darkblue;
+    border: 1px solid white;
+    display: flex;
+    justify-content: start;
+  }
+
+  .smgm-dropdown-menu.open li {
+    padding: 0.2rem;
+  }
+
+  .smgm-dropdown-menu.open a {
+    color: white;
+    font-size: bold;
+  }
+
+  .smgm-company-name {
+    display: none;
+  }
+
+  .smgm-company-logo {
+    display: none;
+  }
+
+  .smgm-category-element {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+  }
+
+  .smgm-company-contact {
+    display: none;
+  }
+
+  .smgm-navbar .title {
+    display: none;
   }
 }

@@ -231,7 +231,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                       />
                     )}
 
-                    <div className="card-body p-4">
+                    <div className="card-body p-2">
                       <div className="text-center">
                         <h5 className="fw-bolder">{product.name}</h5>
                         <h6>

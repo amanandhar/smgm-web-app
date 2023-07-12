@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   CategoryIdContext,
@@ -14,6 +14,7 @@ import "./Header.css";
 
 export const Header = () => {
   const history = useHistory();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { contextCategoryId, updateContextCategoryId } = useContext<
     ICategoryIdContext
@@ -31,11 +32,15 @@ export const Header = () => {
     updateContextProductName(value);
   };
 
+  const handleDropdownMenuClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <div className="sticky-container">
         <header className="smgm-heading1">
-          <div className="smgm-navbar" style={{ height: "75px" }}>
+          <div className="smgm-navbar" style={{ height: "80px" }}>
             <div
               className="header-title truncate"
               onClick={() => history.push("/")}
@@ -66,7 +71,7 @@ export const Header = () => {
           </div>
         </header>
         <header className="smgm-heading2">
-          <div className="smgm-navbar" style={{ height: "45px" }}>
+          <div className="smgm-navbar" style={{ height: "40px" }}>
             <div className="title truncate">
               <label>
                 We have all kinds of grocery items which you needed.
@@ -109,18 +114,21 @@ export const Header = () => {
                   </a>
                 </li>
               </ul>
-              <div className="toggle-btn">
+              <div className="toggle-btn" onClick={handleDropdownMenuClick}>
                 <i className="fa-solid fa-bars"></i>
               </div>
             </div>
           </div>
           <div>
-            <div className="dropdown-menu open">
+            <div
+              className="smgm-dropdown-menu open"
+              style={isOpen ? { display: "block" } : { display: "none" }}
+            >
               <li>
                 <a href="home">Home</a>
               </li>
               <li>
-                <a href="about">About</a>
+                <a href="about-us">About</a>
               </li>
               <li>
                 <a href="services">Services</a>
