@@ -26,7 +26,10 @@ export const UpdateQuantityButton = (props: IUpdateQuantityButtonProps) => {
   };
 
   return (
-    <div className="qttyWrapper632b2d780542f234 qttyWrapper justify-content-around no-outline d-flex">
+    <div
+      className="qttyWrapper632b2d780542f234 qttyWrapper justify-content-around no-outline d-flex"
+      style={{ width: "200px" }}
+    >
       <button
         className="decrementBtn center"
         style={{ outline: "0", cursor: "pointer" }}

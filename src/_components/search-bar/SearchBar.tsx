@@ -17,7 +17,7 @@ export const SearchBar = (props: ISearchBarProps) => {
         <i className="fa fa-search form-control-feedback"></i>
         <input
           type="text"
-          className="form-control"
+          className="form-control smgm-searchbar-input"
           placeholder="Search everything at SMGM Online Store"
           onChange={(e: any) => handleChange(e.target.value)}
         />

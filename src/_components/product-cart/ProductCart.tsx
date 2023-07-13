@@ -310,7 +310,8 @@ export const ProductCart = () => {
                   be delivered within 2-3 business days!
                 </p>
                 <p>
-                  <i className="fas fa-info-circle text-muted fa-lg"></i> Purchased items can be returned within 7 days!!
+                  <i className="fas fa-info-circle text-muted fa-lg"></i>{" "}
+                  Purchased items can be returned within 7 days!!
                 </p>
                 <p className="text-muted"></p>
               </div>
@@ -385,7 +386,7 @@ export const ProductCart = () => {
                 </div>
                 <hr style={{ margin: "0.5rem 0" }} />
                 <div className="d-flex justify-content-between">
-                  <p className="mb-2">Total Price:</p>
+                  <p className="mb-2">Total Amount:</p>
                   <p className="mb-2 fw-bold">
                     Rs {subTotal + (paymentDetail.deliveryCharge || 0.0)}
                   </p>
@@ -409,7 +410,7 @@ export const ProductCart = () => {
                   <a
                     href="#"
                     className="btn btn-secondary w-100 border"
-                    style={{backgroundColor: "darkblue"}}
+                    style={{ backgroundColor: "darkblue" }}
                     onClick={handleBackToShopping}
                   >
                     {" "}

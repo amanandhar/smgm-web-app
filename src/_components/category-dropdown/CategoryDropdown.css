@@ -1,7 +1,16 @@
 .smgm-container {
   background-color: white;
-  border-radius: 6px;
   margin: 1px auto;
+  border-radius: 6px;
+}
+
+.smgm-btn {
+  height: 45px;
+  border-radius: 6px;
+}
+
+.smgm-btn:active {
+  border-radius: 6px;
 }
 
 .dropdown-menu {

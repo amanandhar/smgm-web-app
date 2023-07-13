@@ -8,7 +8,7 @@ export const AddCartButton = (props: IAddCartButtonProps) => {
   return (
     <button
       className="addToCartBtn no-outline center"
-      style={{ outline: "0" }}
+      style={{ outline: "0", cursor: "pointer", width: "200px" }}
       onClick={props.onClick}
     >
       <img

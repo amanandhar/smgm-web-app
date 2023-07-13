@@ -10,7 +10,9 @@ export interface ICategoryDropdownProps {
 
 export const CategoryDropdown = (props: ICategoryDropdownProps) => {
   const [categories, setCategories] = useState<ItemCategory[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    "All Category"
+  );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -54,7 +56,9 @@ export const CategoryDropdown = (props: ICategoryDropdownProps) => {
             }
           );
 
-          let defaultCategories: ItemCategory[] = [{ counter: 0, name: "All" }];
+          let defaultCategories: ItemCategory[] = [
+            { counter: 0, name: "All Category" },
+          ];
           setCategories(defaultCategories.concat(itemCategories));
         });
     } catch (error) {
@@ -69,7 +73,7 @@ export const CategoryDropdown = (props: ICategoryDropdownProps) => {
       {isLoading && <Spinner />}
       <div ref={dropdownRef} className="dropdown smgm-container">
         <button
-          className="btn dropdown-toggle"
+          className="btn dropdown-toggle smgm-btn"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"

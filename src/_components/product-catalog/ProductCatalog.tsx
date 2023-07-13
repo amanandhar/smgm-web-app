@@ -252,7 +252,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
                         <div className="btn mt-auto">
                           {product.isButtonEnabled && (
