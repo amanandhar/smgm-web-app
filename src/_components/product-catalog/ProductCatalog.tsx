@@ -205,7 +205,7 @@ export const ProductCatalog = (props: IProductCatalogProps) => {
       {isLoading && <Spinner />}
       <section>
         <div className="container px-4 px-lg-5 mt-5">
-          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <div className="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {products.length > 0 &&
               products.map((product, index) => (
                 <div key={index} className="col mb-5">

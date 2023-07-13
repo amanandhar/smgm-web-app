@@ -1272,7 +1272,8 @@ a.download-vyapar:hover {
 
   .card-img-top {
     width: 87px;
-    height: 87px;
+    /* height: 87px; */
+    height: 200px;
   }
 
   .location-icon {
